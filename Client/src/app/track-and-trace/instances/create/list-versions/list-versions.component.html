@@ -1,0 +1,48 @@
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <ng-container *ngFor="let parameter of [{ 'name': 'Version', 'title': 'Identifier', 'sortable': true }, { 'name': 'Creation', 'sortable': true }]">
+          <th scope="col" class="sortable" sortable="{{ parameter['name'].toLowerCase() }}" (sort)="sort($event)">
+            <div class="d-flex flex-row align-text-top">
+              <div class="pr-2 pt-2 position-relative">
+                <i class="fa fa-sort-up position-absolute" [ngStyle]="{ 'opacity': (display_service['sort_field'] !== parameter['name'].toLowerCase()) || (display_service['sort_direction'] == 'desc') ? 0.4 : 1  }"></i>
+                <i class="fa fa-sort-down position-absolute" [ngStyle]="{ 'opacity': (display_service['sort_field'] != parameter['name'].toLowerCase()) || (display_service['sort_direction'] == 'asc') ? 0.4 : 1 }"></i>
+              </div>
+              <div class="p-1">{{ parameter['title'] || parameter['name'] }}</div>
+            </div>
+          </th>
+        </ng-container>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngIf="display_service.loading | async; else loaded_table">
+        <tr>
+          <td align="center" colspan="2">LOADING...</td>
+        </tr>
+      </ng-container>
+      <ng-template #loaded_table>
+        <ng-container *ngIf="(versions | async)?.length > 0; else empty_table">
+          <tr *ngFor="let version of versions | async; let i = index">
+            <td class="align-middle btn btn-link" (click)="select(version['version'])"><ngb-highlight [result]="version['version']" [term]="display_service['filter_term']"></ngb-highlight></td>
+            <td class="align-middle"><ngb-highlight [result]="version['creation'] | date:'dd/MM/yyyy HH:mm'" [term]="display_service['filter_term']"></ngb-highlight></td>
+          </tr>
+        </ng-container>
+        <ng-template #empty_table>
+          <tr>
+            <td align="center" colspan="2">NO ENTRY FOUND</td>
+          </tr>
+        </ng-template>
+      </ng-template>
+    </tbody>
+  </table>
+</div>
+<div class="d-flex justify-content-between p-2">
+  <ngb-pagination [collectionSize]="(total_number_of_versions | async)!" [(page)]="display_service['current_page']" [pageSize]="display_service['page_size']">
+  </ngb-pagination>
+
+  <select class="custom-select" style="width: auto" name="page_size" [(ngModel)]="display_service['page_size']">
+    <option [ngValue]="5">5 items per page</option>
+    <option [ngValue]="10">10 items per page</option>
+  </select>
+</div>

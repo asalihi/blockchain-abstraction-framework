@@ -1,0 +1,5 @@
+// TODO: Create list as for DB
+export const SUPPORTED_CRYPTOGRAPHY_CONDITIONS: string[] = ['hash-equals', 'signature-is-valid', 'valid-signature-using-one-of', 'multiple-valid-signatures'];
+export const SUPPORTED_DATETIME_CONDITIONS: string[] = ['date-is-before', 'date-is-after', 'date-is-between', 'date-equals', 'day-equals', 'week-day-equals', 'month-equals', 'year-equals', 'time-is-before', 'time-is-after', 'time-is-between', 'time-equals', 'hours-equal', 'minutes-equal', 'seconds-equal', 'datetime-is-before', 'datetime-is-after', 'datetime-is-between', 'datetime-equals', 'duration-between-dates-equals', 'duration-between-dates-is-lower-than', 'duration-between-dates-is-higher-than'];
+export const SUPPORTED_NUMBER_CONDITIONS: string[] = ['value-is-greater-than', 'value-is-lower-than', 'value-is-between', 'value-equals', 'variation-is-greater-than', 'variation-is-lower-than', 'value-is-positive', 'value-is-negative'];
+export const SUPPORTED_STRING_CONDITIONS: string[] = ['string-equals', 'string-includes', 'string-is-included', 'string-in-array', 'string-not-in-array', 'string-regex-validation'];

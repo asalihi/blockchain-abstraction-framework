@@ -1,0 +1,36 @@
+<div fxFlex fxLayout="column" [formGroup]="form">
+  <div fxFlex fxLayout="column" class="modal-body">
+    <div fxFlex class="mb-3">
+      <label for="data" class="control-label font-weight-bold">{{ content | titlecase }}</label>
+      <br />
+      <textarea rows="12" style="resize: none" class="form-control" [ngClass]="{'is-invalid': form.controls.data.invalid && (form.controls.data.touched || form.controls.data.dirty) && form.controls.data.value !== '', 'is-valid': form.controls.data.valid && form.controls.data.dirty && form.controls.data.value !== '' }" id="data" name="data" formControlName="data" aria-describedby="data-description">{{ data }}</textarea>
+      <small *ngIf="!this.data && form.controls.data.pristine" id="data-description" class="form-text text-muted">Add any additional JSON data here</small>
+    </div>
+    <div fxLayoutAlign="end" fxLayout="column">
+      <div fxLayout="row">
+        <div fxFlex class="btn-toolbar justify-content-center" role="toolbar" aria-label="Actions">
+          <div class="btn-group mr-2" role="group">
+            <label class="btn btn-danger" aria-label="Cancel" (click)="!this.form.controls.data.value ? display_modal.hide() : show_cancel_confirmation(confirm_cancel_template)">{{ this.data ? 'Delete' : 'Cancel' }}</label>
+          </div>
+          <div class="btn-group" role="group">
+            <label class="btn btn-success" aria-label="Save" (click)="save_data()" [ngClass]="{ 'disabled': this.form.invalid }">Save</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #confirm_cancel_template>
+  <div class="modal-body text-center bg-dark text-light font-weight-bold">
+    <div class="mb-3">Any submitted content will be {{ this.data ? 'deleted' : 'ignored' }}. Continue?</div>
+    <div class="btn-toolbar justify-content-center" role="toolbar" aria-label="Actions">
+      <div class="btn-group mr-2" role="group">
+        <button type="button" class="btn btn-outline-success" (click)="confirm_cancel()">Yes</button>
+      </div>
+      <div class="btn-group" role="group">
+        <button type="button" class="btn btn-outline-danger" (click)="cancel_modal.hide()">No</button>
+      </div>
+    </div>
+  </div>
+</ng-template>

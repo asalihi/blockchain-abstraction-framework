@@ -1,0 +1,15 @@
+export type Identifier = string;
+export type Maybe<T> = T | undefined;
+export type Nullable<T> = T | null;
+export type RecursivePartial<T> = { [P in keyof T]?: RecursivePartial<T[P]> };
+export type DistributiveOmit<T, K extends keyof any> = T extends any ? Omit<T, K> : never;
+export type DistributiveExtension<T, K> = T extends any ? T & K : never;
+export type Parameters = { [key: string]: any };
+export type Name = Identifier;
+export type Username = Identifier;
+export type Password = string;
+export type Port = number;
+export type File = string;
+export type Folder = string;
+export type EnvironmentVariables = { [key: string]: string };
+export type ExecutionOptions = { silent: boolean, critical: boolean, messages: { message_on_error: string, message_on_success: string }, env?: EnvironmentVariables };

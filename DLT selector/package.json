@@ -1,0 +1,25 @@
+{
+  "name": "dlt-selector",
+  "version": "0.0.0",
+  "description": "DLTSelector",
+  "main": "index.js",
+  "author": {
+    "name": ""
+  },
+  "scripts": {
+    "clean": "tsc --build --clean && shx rm -rf dist",
+    "deploy": "npm run build && npm run start",
+    "build": "npm run clean && tsc --declaration --declarationMap",
+    "start": "node ./dist/index.js"
+  },
+  "devDependencies": {
+    "@types/node": "^14.14.7",
+    "shx": "^0.3.3",
+    "typescript": "^4.0.5"
+  },
+  "dependencies": {
+    "config": "^3.3.6",
+    "lodash": "^4.17.21",
+    "mongoose": "^6.0.7"
+  }
+}

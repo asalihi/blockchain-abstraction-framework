@@ -1,0 +1,26 @@
+<div fxFlexFill fxLayout="row">
+  <div fxFlex class="text-center jumbotron bg-light m-0">
+    <div class="display-2">Cryptography</div>
+
+    <div class="card-deck mr-5 ml-5 mt-5">
+      <div class="card text-center p-4">
+        <a class="card-block stretched-link text-decoration-none" routerLink="fingerprints">
+          <h4 class="card-title">Fingerprints</h4>
+          <p class="card-text">#️⃣</p>
+        </a>
+      </div>
+    </div>
+    <div class="card-deck mr-5 ml-5 mt-3">
+      <div class="card text-center p-4">
+        <a class="card-block stretched-link text-decoration-none" routerLink="signatures">
+          <h4 class="card-title">Signatures</h4>
+          <p class="card-text">🔏</p>
+        </a>
+      </div>
+    </div>
+
+    <div class="row justify-content-center mt-5">
+      <h5 class="h-5 clickable btn-link" [routerLink]="['..']"><< Back</h5>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,177 @@
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">14.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <Name>Gateway</Name>
+    <RootNamespace>Gateway</RootNamespace>
+    <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>29d6df9e-0f11-49ba-a4dc-e43d62e89897</ProjectGuid>
+    <ProjectHome>.</ProjectHome>
+    <StartupFile>
+    </StartupFile>
+    <StartWebBrowser>False</StartWebBrowser>
+    <SearchPath>
+    </SearchPath>
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <ProjectTypeGuids>{3AF33F2E-1136-4D97-BBB7-1795711AC8B8};{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}</ProjectTypeGuids>
+    <EnableTypeScript>true</EnableTypeScript>
+    <StartWebBrowser>false</StartWebBrowser>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include=".env" />
+    <Content Include="config\custom-environment-variables.js" />
+    <Content Include="config\development.js" />
+    <Content Include="package.json" />
+    <Content Include="README.md" />
+    <Content Include="tsconfig.json" />
+    <Content Include="webpack.config.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="config\" />
+    <Folder Include="src\" />
+    <Folder Include="src\controller\" />
+    <Folder Include="src\crypto\" />
+    <Folder Include="src\database\" />
+    <Folder Include="src\database\api-sessions\" />
+    <Folder Include="src\database\modules\" />
+    <Folder Include="src\database\users\" />
+    <Folder Include="src\server\" />
+    <Folder Include="src\server\configuration\" />
+    <Folder Include="src\server\endpoints\" />
+    <Folder Include="src\server\endpoints\authentication\" />
+    <Folder Include="src\server\endpoints\authentication\api\" />
+    <Folder Include="src\server\endpoints\authentication\web\" />
+    <Folder Include="src\server\endpoints\protected\" />
+    <Folder Include="src\server\endpoints\unprotected\" />
+    <Folder Include="src\server\middlewares\" />
+    <Folder Include="src\utils\" />
+    <Folder Include="src\utils\constants\" />
+    <Folder Include="src\utils\errors\" />
+    <Folder Include="src\utils\types\" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="src\crypto\helpers.ts" />
+    <TypeScriptCompile Include="src\crypto\jwks.ts" />
+    <TypeScriptCompile Include="src\crypto\jws.ts" />
+    <TypeScriptCompile Include="src\crypto\jwt.ts" />
+    <TypeScriptCompile Include="src\crypto\rsa.ts" />
+    <TypeScriptCompile Include="src\database\api-sessions\session.controller.ts" />
+    <TypeScriptCompile Include="src\database\api-sessions\session.interface.ts" />
+    <TypeScriptCompile Include="src\database\api-sessions\session.model.ts" />
+    <TypeScriptCompile Include="src\database\api-sessions\session.ts" />
+    <TypeScriptCompile Include="src\database\database.ts" />
+    <TypeScriptCompile Include="src\database\modules\module.controller.ts" />
+    <TypeScriptCompile Include="src\database\modules\module.interface.ts" />
+    <TypeScriptCompile Include="src\database\modules\module.model.ts" />
+    <TypeScriptCompile Include="src\database\modules\module.ts" />
+    <TypeScriptCompile Include="src\database\schemata.ts" />
+    <TypeScriptCompile Include="src\database\users\user.controller.ts" />
+    <TypeScriptCompile Include="src\database\users\user.interface.ts" />
+    <TypeScriptCompile Include="src\database\users\user.model.ts" />
+    <TypeScriptCompile Include="src\database\users\user.ts" />
+    <TypeScriptCompile Include="src\index.ts" />
+    <TypeScriptCompile Include="src\server\configuration\cors.ts" />
+    <TypeScriptCompile Include="src\server\configuration\passport.ts" />
+    <TypeScriptCompile Include="src\server\configuration\web-session.ts" />
+    <TypeScriptCompile Include="src\server\endpoints\authentication\api\authentication.ts" />
+    <TypeScriptCompile Include="src\server\endpoints\authentication\api\session.ts" />
+    <TypeScriptCompile Include="src\server\endpoints\authentication\endpoints.ts" />
+    <TypeScriptCompile Include="src\server\endpoints\authentication\web\authentication.ts" />
+    <TypeScriptCompile Include="src\server\endpoints\authentication\web\session.ts" />
+    <TypeScriptCompile Include="src\server\endpoints\endpoints.ts" />
+    <TypeScriptCompile Include="src\server\endpoints\keystore.ts" />
+    <TypeScriptCompile Include="src\server\endpoints\protected\track-and-trace.ts" />
+    <TypeScriptCompile Include="src\server\endpoints\protected\modules.ts" />
+    <TypeScriptCompile Include="src\server\endpoints\protected\endpoints.ts" />
+    <TypeScriptCompile Include="src\server\endpoints\protected\protected.ts" />
+    <TypeScriptCompile Include="src\server\endpoints\protected\data-manager.ts" />
+    <TypeScriptCompile Include="src\server\endpoints\unprotected\endpoints.ts" />
+    <TypeScriptCompile Include="src\server\endpoints\unprotected\unprotected.ts" />
+    <TypeScriptCompile Include="src\server\express.ts" />
+    <TypeScriptCompile Include="src\server\helpers.ts" />
+    <TypeScriptCompile Include="src\server\middlewares\api-authentication.ts" />
+    <TypeScriptCompile Include="src\server\middlewares\errors.ts" />
+    <TypeScriptCompile Include="src\server\middlewares\headers.ts" />
+    <TypeScriptCompile Include="src\server\middlewares\middlewares.ts" />
+    <TypeScriptCompile Include="src\server\middlewares\web-authentication.ts" />
+    <TypeScriptCompile Include="src\server\proxy.ts" />
+    <TypeScriptCompile Include="src\server\router.ts" />
+    <TypeScriptCompile Include="src\server\server.ts" />
+    <TypeScriptCompile Include="src\utils\constants.ts" />
+    <TypeScriptCompile Include="src\utils\constants\crypto.ts" />
+    <TypeScriptCompile Include="src\utils\constants\datetime.ts" />
+    <TypeScriptCompile Include="src\utils\constants\errors.ts" />
+    <TypeScriptCompile Include="src\utils\constants\regex.ts" />
+    <TypeScriptCompile Include="src\utils\constants\server.ts" />
+    <TypeScriptCompile Include="src\utils\errors.ts" />
+    <TypeScriptCompile Include="src\utils\errors\api.ts" />
+    <TypeScriptCompile Include="src\utils\errors\crypto.ts" />
+    <TypeScriptCompile Include="src\utils\errors\database.ts" />
+    <TypeScriptCompile Include="src\utils\errors\generic.ts" />
+    <TypeScriptCompile Include="src\utils\errors\server.ts" />
+    <TypeScriptCompile Include="src\utils\errors\utility.ts" />
+    <TypeScriptCompile Include="src\utils\helpers.ts" />
+    <TypeScriptCompile Include="src\controller\modules.ts" />
+    <TypeScriptCompile Include="src\utils\routines.ts" />
+    <TypeScriptCompile Include="src\utils\types.ts" />
+    <TypeScriptCompile Include="src\utils\types\authentication.ts" />
+    <TypeScriptCompile Include="src\utils\types\modules.ts" />
+    <TypeScriptCompile Include="src\utils\types\crypto.ts" />
+    <TypeScriptCompile Include="src\utils\types\errors.ts" />
+    <TypeScriptCompile Include="src\utils\types\server.ts" />
+    <TypeScriptCompile Include="src\utils\types\utils.ts" />
+    <TypeScriptCompile Include="src\utils\utils.ts" />
+  </ItemGroup>
+  <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsToolsV2.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:48022/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>True</UseCustomServer>
+          <CustomServerUrl>http://localhost:1337</CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}" User="">
+        <WebProjectProperties>
+          <StartPageUrl>
+          </StartPageUrl>
+          <StartAction>CurrentPage</StartAction>
+          <AspNetDebugging>True</AspNetDebugging>
+          <SilverlightDebugging>False</SilverlightDebugging>
+          <NativeDebugging>False</NativeDebugging>
+          <SQLDebugging>False</SQLDebugging>
+          <ExternalProgram>
+          </ExternalProgram>
+          <StartExternalURL>
+          </StartExternalURL>
+          <StartCmdLineArguments>
+          </StartCmdLineArguments>
+          <StartWorkingDirectory>
+          </StartWorkingDirectory>
+          <EnableENC>False</EnableENC>
+          <AlwaysStartWebServerOnDebug>False</AlwaysStartWebServerOnDebug>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

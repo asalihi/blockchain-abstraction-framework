@@ -1,0 +1,22 @@
+{
+    "platform": {
+      "type": [
+        {
+          "value": "public",
+          "weight": 4
+        },
+        {
+          "value": "permissioned",
+          "weight": 2
+        }
+      ]
+    },
+    "contract": {
+      "support": [
+        {
+          "value": true,
+          "weight": 3
+        }
+      ]
+    }
+  }

@@ -1,0 +1,108 @@
+<div fxFlexFill fxLayout="column">
+  <div class="container mt-2 mb-2">
+    <div class="row justify-content-center">
+      <div fxFlex fxLayout="column" class="col-10 justify-content-center">
+        <div class="row">
+          <div class="display-4 mb-4">Add a new version</div>
+        </div>
+        <div *ngIf="error['activated'] && error['type'] === 'invalid-or-missing-fields'" class="row">
+          <ngb-alert type="danger" (closed)="error = { 'activated': false }">
+            <div [ngSwitch]="error['type']">
+              Missing or invalid fields. Please ensure identifier, model and provided information (if any) are correct.
+            </div>
+          </ngb-alert>
+        </div>
+        <form fxFlex fxLayout="column" [formGroup]="form">
+            <div class="row mb-4">
+              <div class="col pl-0">
+                <label for="identifier">Version identifier</label>
+                <input type="text" autocomplete="off" class="form-control" [ngClass]="{'is-invalid': form.controls.identifier.invalid && (form.controls.identifier.touched || form.controls.identifier.dirty), 'is-valid': form.controls.identifier.valid && form.controls.identifier.dirty }" id="identifier" name="identifier" formControlName="identifier" aria-describedby="identifier-description" placeholder="Identifier">
+                <div *ngIf="form.controls.identifier.invalid && (form.controls.identifier.dirty || form.controls.identifier.touched)" class="text-danger form-text">
+                  <div *ngIf="form.controls.identifier.errors.required">
+                    Identifier is required
+                  </div>
+                  <div *ngIf="form.controls.identifier.errors.minlength">
+                    Identifier must be at least {{form.controls.identifier.errors.minlength.requiredLength}} characters long
+                  </div>
+                  <div *ngIf="form.controls.identifier.errors.pattern">
+                    Identifier should contain alphanumeric characters only
+                  </div>
+                </div>
+                <small *ngIf="form.controls.identifier.pristine" id="identifier-description" class="form-text text-muted">Version identifier should be unique</small>
+              </div>
+              <div class="col">
+                  <div class="mb-2 d-flex flex-row-reverse pr-3">Version information</div>
+                  <div class="d-flex flex-row-reverse pr-3">
+                    <div class="btn-group" role="group">
+                      <button class="btn mr-2" [ngClass]="{ 'btn-primary': !version['data'], 'btn-warning': version['data'] }" (click)="show_data_modal()">{{ version['data'] ? 'Edit data' : 'Add data' }}</button>
+                      <button class="btn" [ngClass]="{ 'btn-primary': !version['options'], 'btn-warning': version['options'] }" (click)="show_options_modal()">{{ version['options'] ? 'Edit options' : 'Add options' }}</button>
+                    </div>
+                  </div>
+              </div>
+            </div>
+
+            <div class="row p-0 mb-2">Process model definition</div>
+            <div class="row p-0">
+              <div class="btn-toolbar" role="toolbar" aria-label="Actions">
+                <div class="btn-group mr-2" role="group">
+                  <label class="btn btn-primary p-2">Load file<input #file_input type="file" accept=".bpmn" id="bpmn-file" (click)="error = { 'activated': false }" (change)="load_file($event.target.files)" hidden></label>
+                </div>
+                <div class="btn-group mr-2" role="group">
+                  <label class="btn btn-primary p-2">Open BPMN editor<input type="text" (click)="show_modeler()" hidden></label>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="error['activated'] && error['type'].includes('upload')" class="row p-0">
+              <div class="text-danger form-text" [ngSwitch]="error['type']">
+                <span *ngSwitchCase="'upload-invalid-file'">
+                  Model could not be loaded correctly. Please check if source is a valid BPMN file and retry.
+                </span>
+                <span *ngSwitchCase="'upload-max-size-reached'">
+                  Selected file is too big. Please ensure your file size is less than {{ MAX_BPMN_FILE_SIZE }} bytes.
+                </span>
+                <span *ngSwitchCase="'upload-generic-error'">
+                  An error occurred while uploading your file. Please retry.
+                </span>
+                <br />
+                <span>[file: {{ file.name }}]</span>
+              </div>
+            </div>
+
+            <div fxFlexFill class="row border border-dark rounded justify-content-center align-items-center">
+              <app-bpmn-modeler *ngIf="!editing && version['file']; else empty_process_definition" fxFlexFill #modeler [mode]="'view'" [model]="version['file']"></app-bpmn-modeler>
+              <ng-template #empty_process_definition>
+                <div class="align-middle justify-content-center align-items-center p-0">
+                  <small class="text-muted text-center align-middle">Process model will be shown here</small>
+                </div>
+              </ng-template>
+            </div>
+
+            <div class="row mt-5">
+              <div class="btn-toolbar mb-4" role="toolbar" aria-label="Actions">
+                <div class="btn-group mr-2" role="group">
+                  <button type="button" class="btn btn-danger" (click)="(form.controls.identifier.value || version['file'] || version['data'] || version['options']) ? show_cancel_confirmation(confirm_cancel_template) : cancel()" aria-label="Cancel">Cancel</button>
+                </div>
+                <div class="btn-group" role="group">
+                  <button class="btn btn-success" type="button" (click)="save()" [disabled]="!form.valid || !version['file']" aria-label="Save">Save</button>
+                </div>
+              </div>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #confirm_cancel_template>
+  <div class="modal-body text-center bg-light text-dark font-weight-bold">
+    <div class="mb-3">Any modification will be ignored. Continue?</div>
+    <div class="btn-toolbar justify-content-center" role="toolbar" aria-label="Actions">
+      <div class="btn-group mr-2" role="group">
+        <button type="button" class="btn btn-success" (click)="confirm_cancel()">Yes</button>
+      </div>
+      <div class="btn-group" role="group">
+        <button type="button" class="btn btn-dark" (click)="cancel_modal.hide()">No</button>
+      </div>
+    </div>
+  </div>
+</ng-template>

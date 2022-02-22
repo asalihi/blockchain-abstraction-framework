@@ -1,0 +1,101 @@
+<div fxFlexFill fxLayout="column" *ngIf="!adding_process">
+  <div fxFlex style="overflow: auto">
+    <div class="container mt-2 mb-2">
+      <div class="row justify-content-center">
+        <div class="col-10">
+          <div class="row mb-2">
+            <div class="display-4">Existing processes</div>
+          </div>
+          <div class="row mb-5">
+            <h5 class="h-5 clickable btn-link" [routerLink]="['..']"><< Back</h5>
+          </div>
+          <form>
+            <div class="row flex-fill align-items-end mb-4">
+              <div class="col-4">
+                <label for="search" class="control-label font-weight-bold">Filter by identifier</label><input autocomplete="off" class="form-control" type="text" name="filter" [(ngModel)]="display_service['filter_term']" />
+              </div>
+              <div class="col-4"></div>
+              <div class="col-4">
+                <div class="float-right">
+                  <button class="btn btn-primary mr-2" type="button" (click)="refresh_table()"><i class="fa fa-refresh"></i> Refresh</button>
+                  <button class="btn btn-primary" type="button" (click)="adding_process=true"><i class="fa fa-plus"></i> New process</button>
+                </div>
+
+              </div>
+            </div>
+
+            <div class="form-group form-inline">
+
+            </div>
+
+            <div class="table-responsive">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <ng-container *ngFor="let parameter of [{ 'name': 'Identifier', 'sortable': true }, { 'name': 'State', 'sortable': true }, { 'name': 'Creation', 'sortable': true }, { 'name': 'Deactivation', 'sortable': true }, { 'name': 'Versions', 'sortable': false }]">
+                      <ng-container *ngIf="!parameter['sortable']; else sortable_column">
+                        <th scope="col"><div class="p-1">{{ parameter['name'] }}</div></th>
+                      </ng-container>
+                      <ng-template #sortable_column>
+                        <th scope="col" class="sortable" sortable="{{ parameter['name'].toLowerCase() }}" (sort)="sort($event)">
+                          <div class="d-flex flex-row align-text-top">
+                            <div class="pr-2 pt-2 position-relative">
+                              <i class="fa fa-sort-up position-absolute" [ngStyle]="{ 'opacity': (display_service['sort_field'] !== parameter['name'].toLowerCase()) || (display_service['sort_direction'] == 'desc') ? 0.4 : 1  }"></i>
+                              <i class="fa fa-sort-down position-absolute" [ngStyle]="{ 'opacity': (display_service['sort_field'] != parameter['name'].toLowerCase()) || (display_service['sort_direction'] == 'asc') ? 0.4 : 1 }"></i>
+                            </div>
+                            <div class="p-1">{{ parameter['name'] }}</div>
+                          </div>
+                        </th>
+                      </ng-template>
+                    </ng-container>
+                  </tr>
+                </thead>
+                <tbody>
+                  <ng-container *ngIf="display_service.loading | async; else loaded_table">
+                    <tr>
+                      <td align="center" colspan="5">LOADING...</td>
+                    </tr>
+                  </ng-container>
+                  <ng-template #loaded_table>
+                    <ng-container *ngIf="(processes | async)?.length > 0; else empty_table">
+                      <tr *ngFor="let process of processes | async; let i = index">
+                        <td class="align-middle"><div class="btn btn-link" [routerLink]="[process['process']]"><ngb-highlight [result]="process['process']" [term]="display_service['filter_term']"></ngb-highlight></div></td>
+                        <td class="align-middle" [ngClass]="{'text-danger': process['state'] == 'deactivated', 'text-success':  process['state'] == 'active' }"><ngb-highlight [result]="process['state']" [term]="display_service['filter_term']"></ngb-highlight></td>
+                        <td class="align-middle"><ngb-highlight [result]="process['creation'] | date:'dd/MM/yyyy HH:mm'" [term]="display_service['filter_term']"></ngb-highlight></td>
+                        <td class="align-middle"><ngb-highlight [result]="process['deactivation'] ? (process['deactivation'] | date:'dd/MM/yyyy HH:mm') : 'N/A'" [term]="display_service['filter_term']"></ngb-highlight></td>
+                        <td class="align-middle"><div class="d-flex flex-row"><div class="p-2"><ngb-highlight [result]="process['versions'] | number" [term]="display_service['filter_term']"></ngb-highlight></div></div></td>
+                      </tr>
+                    </ng-container>
+                    <ng-template #empty_table>
+                      <tr>
+                        <td align="center" colspan="5">NO ENTRY FOUND</td>
+                      </tr>
+                    </ng-template>
+                  </ng-template>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="d-flex justify-content-between p-2">
+              <ngb-pagination [collectionSize]="(total_number_of_processes | async)!" [(page)]="display_service['current_page']" [pageSize]="display_service['page_size']">
+              </ngb-pagination>
+
+              <select class="custom-select" style="width: auto" name="page_size" [(ngModel)]="display_service['page_size']">
+                <option [ngValue]="5">5 items per page</option>
+                <option [ngValue]="10">10 items per page</option>
+                <option [ngValue]="25">25 items per page</option>
+                <option [ngValue]="50">50 items per page</option>
+              </select>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="adding_process" fxFlexFill fxLayout="column" class="container p-0">
+  <div fxFlex style="overflow: auto">
+    <create-process fxFlexFill (cancelled)="adding_process = false" (saved)="create_process($event)"></create-process>
+  </div>
+</div>

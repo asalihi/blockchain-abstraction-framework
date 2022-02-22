@@ -1,0 +1,38 @@
+.modeler
+    position: relative
+
+.properties-panel
+  position: absolute
+  top: 0
+  bottom: 0
+  right: 0
+  width: 260px
+  z-index: 10
+  border-left: 1px solid #ccc
+  overflow: auto
+
+.properties-panel:empty
+  display: none
+
+.properties-panel > .djs-properties-panel
+  padding-bottom: 70px
+  min-height: 100%
+
+#canvas
+  height: 100%
+  max-height: 100%
+
+#canvas > .bjs-container
+  position: absolute!important
+
+#canvas .djs-overlay-linting svg
+  vertical-align: unset!important
+
+#canvas .djs-overlay-linting .bjsl-icon
+  height: unset!important
+
+.bjsl-button-inactive:not(:hover) *
+  color: #444!important
+
+.bjsl-button-inactive:hover *
+  color: black!important

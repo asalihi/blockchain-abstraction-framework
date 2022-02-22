@@ -1,0 +1,17 @@
+{
+	"name": "store",
+	"version": "1.0.0",
+	"description": "Store chaincode for testing purposes",
+	"engines": {
+		"node": "^12.16.1",
+        "npm": "^6.4.1"
+	},
+	"scripts": {
+		"start": "node store.js"
+	},
+	"engine-strict": true,
+	"license": "Apache-2.0",
+	"dependencies": {
+		"fabric-shim": "^2.2.2"
+	}
+}

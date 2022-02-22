@@ -1,0 +1,197 @@
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">14.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <Name>Core</Name>
+    <RootNamespace>Core</RootNamespace>
+    <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>2b32365b-b56b-448f-af26-95267231e115</ProjectGuid>
+    <ProjectHome>.</ProjectHome>
+    <StartupFile>
+    </StartupFile>
+    <StartWebBrowser>False</StartWebBrowser>
+    <SearchPath>
+    </SearchPath>
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <ProjectTypeGuids>{3AF33F2E-1136-4D97-BBB7-1795711AC8B8};{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}</ProjectTypeGuids>
+    <EnableTypeScript>true</EnableTypeScript>
+    <StartWebBrowser>false</StartWebBrowser>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include=".env" />
+    <Content Include="package.json" />
+    <Content Include="README.md" />
+    <Content Include=".npmignore" />
+    <Content Include="tsconfig.json" />
+    <Content Include="webpack.config.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="src\" />
+    <Folder Include="src\constants\" />
+    <Folder Include="src\constants\blockchain\" />
+    <Folder Include="src\constants\blockchain\connectors\" />
+    <Folder Include="src\constants\blockchain\connectors\fabric\" />
+    <Folder Include="src\constants\conditions\" />
+    <Folder Include="src\constants\conditions\execution\" />
+    <Folder Include="src\constants\conditions\notifications\" />
+    <Folder Include="src\crypto\" />
+    <Folder Include="src\database\" />
+    <Folder Include="src\database\traces\" />
+    <Folder Include="src\errors\" />
+    <Folder Include="src\helpers\" />
+    <Folder Include="src\helpers\conditions\" />
+    <Folder Include="src\rabbitmq\" />
+    <Folder Include="src\routines\" />
+    <Folder Include="src\server\" />
+    <Folder Include="src\server\configuration\" />
+    <Folder Include="src\server\middlewares\" />
+    <Folder Include="src\server\router\" />
+    <Folder Include="src\types\" />
+    <Folder Include="src\types\blockchain\" />
+    <Folder Include="src\types\blockchain\connectors\" />
+    <Folder Include="src\types\blockchain\connectors\fabric\" />
+    <Folder Include="src\types\conditions\" />
+    <Folder Include="src\types\conditions\execution\" />
+    <Folder Include="src\types\conditions\notifications\" />
+    <Folder Include="src\types\track-and-trace\" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="src\constants\blockchain\blockchain.ts" />
+    <TypeScriptCompile Include="src\constants\blockchain\connectors\connectors.ts" />
+    <TypeScriptCompile Include="src\constants\blockchain\connectors\fabric\fabric.ts" />
+    <TypeScriptCompile Include="src\constants\blockchain\selector.ts" />
+    <TypeScriptCompile Include="src\constants\blockchain\manager.ts" />
+    <TypeScriptCompile Include="src\constants\actions.ts" />
+    <TypeScriptCompile Include="src\constants\conditions\conditions.ts" />
+    <TypeScriptCompile Include="src\constants\conditions\execution\conditions.ts" />
+    <TypeScriptCompile Include="src\constants\conditions\notifications\conditions.ts" />
+    <TypeScriptCompile Include="src\constants\constants.ts" />
+    <TypeScriptCompile Include="src\constants\errors.ts" />
+    <TypeScriptCompile Include="src\constants\regex.ts" />
+    <TypeScriptCompile Include="src\constants\server.ts" />
+    <TypeScriptCompile Include="src\crypto\crypto.ts" />
+    <TypeScriptCompile Include="src\crypto\helpers.ts" />
+    <TypeScriptCompile Include="src\crypto\jwks.ts" />
+    <TypeScriptCompile Include="src\crypto\jws.ts" />
+    <TypeScriptCompile Include="src\crypto\rsa.ts" />
+    <TypeScriptCompile Include="src\database\database.ts" />
+    <TypeScriptCompile Include="src\database\schemata.ts" />
+    <TypeScriptCompile Include="src\database\traces\trace.controller.ts" />
+    <TypeScriptCompile Include="src\database\traces\trace.interface.ts" />
+    <TypeScriptCompile Include="src\database\traces\trace.model.ts" />
+    <TypeScriptCompile Include="src\database\traces\trace.ts" />
+    <TypeScriptCompile Include="src\errors\api.ts" />
+    <TypeScriptCompile Include="src\errors\controller.ts" />
+    <TypeScriptCompile Include="src\errors\crypto.ts" />
+    <TypeScriptCompile Include="src\errors\database.ts" />
+    <TypeScriptCompile Include="src\errors\errors.ts" />
+    <TypeScriptCompile Include="src\errors\generic.ts" />
+    <TypeScriptCompile Include="src\errors\rabbitmq.ts" />
+    <TypeScriptCompile Include="src\errors\server.ts" />
+    <TypeScriptCompile Include="src\errors\utility.ts" />
+    <TypeScriptCompile Include="src\helpers\conditions\string.ts" />
+    <TypeScriptCompile Include="src\helpers\conditions\number.ts" />
+    <TypeScriptCompile Include="src\helpers\conditions\datetime.ts" />
+    <TypeScriptCompile Include="src\helpers\conditions\cryptography.ts" />
+    <TypeScriptCompile Include="src\helpers\conditions\conditions.ts" />
+    <TypeScriptCompile Include="src\helpers\helpers.ts" />
+    <TypeScriptCompile Include="src\helpers\modules.ts" />
+    <TypeScriptCompile Include="src\helpers\utils.ts" />
+    <TypeScriptCompile Include="src\index.ts" />
+    <TypeScriptCompile Include="src\rabbitmq\rabbitmq.ts" />
+    <TypeScriptCompile Include="src\routines\routines.ts" />
+    <TypeScriptCompile Include="src\server\configuration\configuration.ts" />
+    <TypeScriptCompile Include="src\server\configuration\cors.ts" />
+    <TypeScriptCompile Include="src\server\middlewares\authentication.ts" />
+    <TypeScriptCompile Include="src\server\middlewares\errors.ts" />
+    <TypeScriptCompile Include="src\server\middlewares\headers.ts" />
+    <TypeScriptCompile Include="src\server\middlewares\middlewares.ts" />
+    <TypeScriptCompile Include="src\server\gateway.ts" />
+    <TypeScriptCompile Include="src\server\router\router.ts" />
+    <TypeScriptCompile Include="src\server\proxy.ts" />
+    <TypeScriptCompile Include="src\server\server.ts" />
+    <TypeScriptCompile Include="src\types\data.ts" />
+    <TypeScriptCompile Include="src\types\custodians.ts" />
+    <TypeScriptCompile Include="src\types\blockchain\blockchain.ts" />
+    <TypeScriptCompile Include="src\types\blockchain\connectors\connectors.ts" />
+    <TypeScriptCompile Include="src\types\blockchain\connectors\fabric\fabric.ts" />
+    <TypeScriptCompile Include="src\types\blockchain\selector.ts" />
+    <TypeScriptCompile Include="src\types\blockchain\manager.ts" />
+    <TypeScriptCompile Include="src\types\actions.ts" />
+    <TypeScriptCompile Include="src\types\conditions\execution\cryptography.ts" />
+    <TypeScriptCompile Include="src\types\conditions\execution\string.ts" />
+    <TypeScriptCompile Include="src\types\conditions\execution\datetime.ts" />
+    <TypeScriptCompile Include="src\types\conditions\execution\number.ts" />
+    <TypeScriptCompile Include="src\types\conditions\notifications\blockchain.ts" />
+    <TypeScriptCompile Include="src\types\conditions\conditions.ts" />
+    <TypeScriptCompile Include="src\types\conditions\execution\conditions.ts" />
+    <TypeScriptCompile Include="src\types\conditions\notifications\conditions.ts" />
+    <TypeScriptCompile Include="src\types\crypto.ts" />
+    <TypeScriptCompile Include="src\types\errors.ts" />
+    <TypeScriptCompile Include="src\types\repositories.ts" />
+    <TypeScriptCompile Include="src\types\references.ts" />
+    <TypeScriptCompile Include="src\types\messages.ts" />
+    <TypeScriptCompile Include="src\types\notifications.ts" />
+    <TypeScriptCompile Include="src\types\server.ts" />
+    <TypeScriptCompile Include="src\types\traces.ts" />
+    <TypeScriptCompile Include="src\types\track-and-trace\api-objects.ts" />
+    <TypeScriptCompile Include="src\types\track-and-trace\process.ts" />
+    <TypeScriptCompile Include="src\types\track-and-trace\elements.ts" />
+    <TypeScriptCompile Include="src\types\track-and-trace\stored-objects.ts" />
+    <TypeScriptCompile Include="src\types\track-and-trace\track-and-trace.ts" />
+    <TypeScriptCompile Include="src\types\types.ts" />
+    <TypeScriptCompile Include="src\types\utils.ts" />
+  </ItemGroup>
+  <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsToolsV2.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:48022/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>True</UseCustomServer>
+          <CustomServerUrl>http://localhost:1337</CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}" User="">
+        <WebProjectProperties>
+          <StartPageUrl>
+          </StartPageUrl>
+          <StartAction>CurrentPage</StartAction>
+          <AspNetDebugging>True</AspNetDebugging>
+          <SilverlightDebugging>False</SilverlightDebugging>
+          <NativeDebugging>False</NativeDebugging>
+          <SQLDebugging>False</SQLDebugging>
+          <ExternalProgram>
+          </ExternalProgram>
+          <StartExternalURL>
+          </StartExternalURL>
+          <StartCmdLineArguments>
+          </StartCmdLineArguments>
+          <StartWorkingDirectory>
+          </StartWorkingDirectory>
+          <EnableENC>False</EnableENC>
+          <AlwaysStartWebServerOnDebug>False</AlwaysStartWebServerOnDebug>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

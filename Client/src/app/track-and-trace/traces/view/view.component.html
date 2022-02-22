@@ -1,0 +1,122 @@
+<div fxFlexFill fxLayout="column">
+  <div fxFlex style="overflow: auto" *ngIf="!error; else error_template">
+    <div class="container mt-2 mb-2">
+      <div class="row justify-content-center">
+        <div class="col-10">
+          <div class="row mb-2 d-flex align-items-center">
+            <div class="display-4">View trace</div>
+            <div *ngIf="trace['resources']" class="ml-4 mt-3">
+              <button *ngIf="trace['resources']['data']" class="btn btn-sm btn-dark" [ngClass]="{ 'mr-2': trace['resources']['options'] || trace['resources']['verifications'] }" (click)="show_data(display_data)">Data</button>
+              <button *ngIf="trace['resources']['options']" class="btn btn-sm btn-dark" type="button" [ngClass]="{ 'mr-2': trace['resources']['verifications'] }" (click)="show_options(display_options)">Options</button>
+              <button *ngIf="trace['resources']['verifications']" class="btn btn-sm btn-dark" type="button" (click)="show_verifications(display_verifications)">Verifications</button>
+            </div>
+          </div>
+          <div class="row mb-5">
+            <h5 class="h-5 clickable btn-link" (click)="back()"><< Back</h5>
+          </div>
+          <div class="row mb-3">
+            <div class="col">
+              <h3 class="h-3 font-weight-light m-0">Identifier</h3>
+              <div class="form-control-plaintext font-weight-bold" id="identifier">{{ trace['identifier'] }}</div>
+            </div>
+            <div class="col">
+              <h3 class="h-3 font-weight-light m-0">Timestamp</h3>
+              <div class="form-control-plaintext font-weight-bold" id="timestamp">{{ trace['timestamp'] | date:'dd/MM/yyyy HH:mm' }}</div>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col">
+              <h3 class="h-3 font-weight-light m-0">Signature</h3>
+              <div class="btn-toolbar mt-2" role="toolbar">
+                <div class="btn-group align-middle" role="group">
+                  <button class="btn btn-sm btn-primary mr-2" [ngbTooltip]="signature" #tp="ngbTooltip" triggers="manual" (click)="tp.open({ data: trace['signature'] })" (mouseleave)="tp.close()" placement="auto" container="body">View</button>
+                </div>
+                <div class="btn-group align-middle" role="group">
+                  <button class="btn btn-sm btn-primary" [cdkCopyToClipboard]="trace['signature']">Copy</button>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <h3 class="h-3 font-weight-light m-0">Process</h3>
+              <div class="form-control-plaintext font-weight-bold" id="process">{{ trace['process'] }}</div>
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div *ngIf="trace['version']" class="col">
+              <h3 class="h-3 font-weight-light m-0">Version</h3>
+              <div class="form-control-plaintext font-weight-bold" id="version">{{ trace['version'] }}</div>
+            </div>
+            <div *ngIf="trace['instance']" class="col">
+              <h3 class="h-3 font-weight-light m-0">Instance</h3>
+              <div class="form-control-plaintext font-weight-bold" id="instance">{{ trace['instance'] }}</div>
+            </div>
+          </div>
+          <div class="row" [ngClass]="{ 'mb-5': !trace['reference'], 'mb-3': trace['reference'] }">
+            <div class="col">
+              <h3 class="h-3 font-weight-light m-0">Type</h3>
+              <div class="form-control-plaintext font-weight-bold" id="element" [ngClass]="{ 'text-success': ['task_executed', 'standard_control_executed', 'key_control_executed', 'compensating_control_executed', 'instance_terminated'].includes(trace['type']), 'text-warning': trace['type'] === 'deviation', 'text-danger': ['cancelation', 'validation_failed', 'invalid_element'].includes(trace['type']), 'text-info': ['creation', 'deactivation', 'activation', 'termination'].includes(trace['type']) }">{{ trace['type'] }}</div>
+            </div>
+            <div *ngIf="trace['element']" class="col">
+              <h3 class="h-3 font-weight-light m-0">Element</h3>
+              <div class="form-control-plaintext font-weight-bold" id="element">{{ trace['element'] }}</div>
+            </div>
+          </div>
+          <div class="row mb-5" *ngIf="trace['reference']">
+            <div class="col">
+              <h3 class="h-3 font-weight-light m-0">Reference</h3>
+              <div class="form-control-plaintext font-weight-bold" id="trace">[<span [ngClass]="{ 'text-success': (trace['reference']['state'] === 'saved'), 'text-warning': (trace['reference']['state'] === 'waiting'), 'text-danger': ['error', 'timeout'].includes(trace['reference']['state'])}">{{ trace['reference']['state'] }}</span>] {{ trace['reference']['platform'] }}:{{ trace['reference']['identifier'] }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #error_template>
+  <div fxFlex style="overflow: auto">
+    <ul>
+      <li>ERROR</li>
+      <li *ngFor="let field of error.error | keyvalue">
+        {{ field.key }} : {{ field.value }}
+      </li>
+    </ul>
+  </div>
+</ng-template>
+
+<ng-template #signature let-data="data">{{ data }}</ng-template>
+<ng-template #display_data>
+  <div class="modal-body text-center bg-light text-dark">
+    <div class="mb-4">
+      <textarea disabled rows="12" style="resize: none" class="form-control bg-light" id="options" name="options" aria-describedby="options-description">{{ trace['resources']['data'] | json }}</textarea>
+    </div>
+    <div class="btn-toolbar justify-content-center" role="toolbar" aria-label="Actions">
+      <div class="btn-group mr-2" role="group">
+        <button type="button" class="btn btn-dark" (click)="data_modal.hide()">Close</button>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<ng-template #display_options>
+  <div class="modal-body text-center bg-light text-dark">
+    <div class="mb-4">
+      <textarea disabled rows="12" style="resize: none" class="form-control bg-light" id="options" name="options" aria-describedby="options-description">{{ trace['resources']['options'] | json }}</textarea>
+    </div>
+    <div class="btn-toolbar justify-content-center" role="toolbar" aria-label="Actions">
+      <div class="btn-group mr-2" role="group">
+        <button type="button" class="btn btn-dark" (click)="options_modal.hide()">Close</button>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<ng-template #display_verifications>
+  <div class="modal-body text-center bg-light text-dark">
+    <div class="mb-4">
+      <textarea disabled rows="12" style="resize: none" class="form-control bg-light" id="verifications" name="verifications" aria-describedby="options-description">{{ trace['resources']['verifications'] | json }}</textarea>
+    </div>
+    <div class="btn-toolbar justify-content-center" role="toolbar" aria-label="Actions">
+      <div class="btn-group mr-2" role="group">
+        <button type="button" class="btn btn-dark" (click)="verifications_modal.hide()">Close</button>
+      </div>
+    </div>
+  </div>
+</ng-template>

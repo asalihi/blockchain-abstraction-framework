@@ -1,0 +1,195 @@
+<div fxFlexFill fxLayout="column">
+  <div fxFlex style="overflow: auto" *ngIf="!error; else error_template">
+    <div class="container mt-2 mb-2">
+      <div class="row justify-content-center">
+        <div class="col-10">
+          <div class="row mb-2">
+            <div class="display-4">View instance <button *ngIf="!instance['start'] && !instance['stop']" class="btn btn-sm btn-success" [disabled]="instance['start'] || instance['stop']" (click)="activate()">Activate</button> <button *ngIf="instance['start'] && !instance['stop']" class="btn btn-sm btn-dark mr-2" [disabled]="!instance['start'] || instance['stop']" (click)="deactivate()">Deactivate</button> <button *ngIf="instance['start'] && !instance['stop']" class="btn btn-sm btn-danger" [disabled]="!instance['start'] || instance['stop']" (click)="cancel()">Cancel</button></div>
+          </div>
+          <div class="row mb-5">
+            <h5 class="h-5 clickable btn-link" (click)="back()"><< Back</h5>
+          </div>
+          <div class="row mb-3">
+            <div class="col-3">
+              <h3 class="h-3 font-weight-light m-0">Identifier</h3>
+              <div class="form-control-plaintext font-weight-bold" id="instance">{{ instance['instance'] }}</div>
+            </div>
+            <div class="col-3 text-center">
+              <h3 class="h-3 font-weight-light m-0">Process</h3>
+              <div class="form-control-plaintext font-weight-bold" id="process">{{ instance['process'] }}</div>
+            </div>
+            <div class="col-3 text-center">
+              <h3 class="h-3 font-weight-light m-0">Version</h3>
+              <div class="form-control-plaintext font-weight-bold" id="version">{{ instance['version'] }}</div>
+            </div>
+            <div class="col-3 text-right">
+              <h3 class="h-3 font-weight-light m-0">State</h3>
+              <div class="form-control-plaintext font-weight-bold" [ngClass]="{'text-danger': ['cancelled', 'error'].includes(instance['state']), 'text-info':  instance['state'] == 'running', 'text-success':  instance['state'] == 'finished', 'text-warning': instance['state'] == 'inactive' }" id="state">{{ instance['state'] }}</div>
+            </div>
+          </div>
+          <div class="row mb-3 d-flex">
+            <div class="col-3">
+              <h3 class="h-3 font-weight-light m-0">Creation</h3>
+              <div class="clickable btn-link form-control-plaintext font-weight-bold" id="creation" [routerLink]="['traces', instance['traces']['creation']]">{{ instance['creation'] | date:'dd/MM/yyyy HH:mm' }}</div>
+            </div>
+            <div *ngIf="instance['start'] || (instance['state'] === 'cancelled')" class="col-3 text-center">
+              <h3 class="h-3 font-weight-light m-0">Start</h3>
+              <div class="clickable btn-link form-control-plaintext font-weight-bold" id="start" [routerLink]="['traces', instance['traces']['start']]">{{ (instance['start'] | date:'dd/MM/yyyy HH:mm') || 'N/A' }}</div>
+            </div>
+            <div *ngIf="instance['deviation']" class="col-3 text-center">
+              <h3 class="h-3 font-weight-light m-0">Deviation</h3>
+              <div class="clickable btn-link form-control-plaintext font-weight-bold" id="deviation" [routerLink]="['traces', instance['traces']['deviation']]">{{ (instance['deviation'] | date:'dd/MM/yyyy HH:mm') || 'N/A' }}</div>
+            </div>
+            <div *ngIf="instance['stop']" class="col-3" [ngClass]="{ 'text-center': !instance['deviation'], 'text-right': instance['deviation'] }">
+              <h3 class="h-3 font-weight-light m-0">End</h3>
+              <div class="clickable btn-link form-control-plaintext font-weight-bold" id="end" [routerLink]="['traces', instance['traces']['stop']]">{{ instance['stop'] | date:'dd/MM/yyyy HH:mm' }}</div>
+            </div>
+          </div>
+          <div class="row mb-5">
+            <div class="col-3">
+              <h3 class="h-3 font-weight-light m-0">Signature</h3>
+              <div class="btn-toolbar mt-2" role="toolbar">
+                <div class="btn-group align-middle" role="group">
+                  <button class="btn btn-sm btn-primary mr-2" [ngbTooltip]="signature" #tp="ngbTooltip" triggers="manual" (click)="tp.open({ data: instance['signature'] })" (mouseleave)="tp.close()" placement="auto" container="body">View</button>
+                </div>
+                <div class="btn-group align-middle" role="group">
+                  <button class="btn btn-sm btn-primary" [cdkCopyToClipboard]="instance['signature']">Copy</button>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="instance['resources']" class="col-3 text-center">
+              <h3 class="h-3 font-weight-light">Information</h3>
+              <div class="btn-group" role="group">
+                <button *ngIf="instance['resources']['data']" class="btn btn-sm btn-primary" [ngClass]="{ 'mr-2': instance['resources']['options'] }" (click)="show_data(display_data)">Show data</button>
+                <button *ngIf="instance['resources']['options']" class="btn btn-sm btn-primary" type="button" (click)="show_options(display_options)">Show options</button>
+              </div>
+            </div>
+          </div>
+          <form>
+            <div class="row mb-2">
+              <div class="col-6">
+                <h3 class="h-3 font-weight-light m-0">Updates</h3>
+              </div>
+            </div>
+            <div class="row flex-fill" *ngIf="instance['state'] === 'inactive'; else display_updates">
+              <div class="col-12 text-muted">
+                The instance should be activated first in order to see and add traces related to its updates.
+              </div>
+            </div>
+
+            <ng-template #display_updates>
+              <div class="row flex-fill align-items-end mb-4">
+                <div class="col-4">
+                  <label for="search" class="control-label font-weight-bold">Filter by identifier</label><input class="form-control" type="text" name="filter" [(ngModel)]="display_service['filter_term']" />
+                </div>
+                <div class="col-4"></div>
+                <div class="col-4">
+                  <div class="float-right">
+                    <button class="btn btn-primary mr-2" type="button" (click)="refresh_table()"><i class="fa fa-refresh"></i> Refresh</button>
+                    <button *ngIf="instance['state'] === 'running'" class="btn btn-primary" [disabled]="instance['state'] !== 'running'" (click)="update()"><i class="fa fa-pencil"></i> Register update</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="table-responsive">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <ng-container *ngFor="let parameter of [{ 'name': 'Identifier', 'sortable': false }, { 'name': 'Timestamp', 'sortable': true }, { 'name': 'Type', 'sortable': true }, { 'name': 'Element', 'sortable': true }]">
+                        <ng-container *ngIf="!parameter['sortable']; else sortable_column">
+                          <th scope="col"><div class="p-1">{{ parameter['name'] }}</div></th>
+                        </ng-container>
+                        <ng-template #sortable_column>
+                          <th scope="col" class="sortable" sortable="{{ parameter['name'].toLowerCase() }}" (sort)="sort($event)">
+                            <div class="d-flex flex-row align-text-top">
+                              <div class="pr-2 pt-2 position-relative">
+                                <i class="fa fa-sort-up position-absolute" [ngStyle]="{ 'opacity': (display_service['sort_field'] !== parameter['name'].toLowerCase()) || (display_service['sort_direction'] == 'desc') ? 0.4 : 1  }"></i>
+                                <i class="fa fa-sort-down position-absolute" [ngStyle]="{ 'opacity': (display_service['sort_field'] != parameter['name'].toLowerCase()) || (display_service['sort_direction'] == 'asc') ? 0.4 : 1 }"></i>
+                              </div>
+                              <div class="p-1">{{ parameter['name'] }}</div>
+                            </div>
+                          </th>
+                        </ng-template>
+                      </ng-container>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <ng-container *ngIf="display_service.loading | async; else loaded_table">
+                      <tr>
+                        <td align="center" colspan="4">LOADING...</td>
+                      </tr>
+                    </ng-container>
+                    <ng-template #loaded_table>
+                      <ng-container *ngIf="(updates | async)?.length > 0; else empty_table">
+                        <tr *ngFor="let update of updates | async; let i = index">
+                          <td class="align-middle"><div class="clickable btn-link" [routerLink]="['updates', update['identifier']]"><ngb-highlight [result]="update['identifier']" [term]="display_service['filter_term']"></ngb-highlight></div></td>
+                          <td class="align-middle"><ngb-highlight [result]="update['timestamp'] | date:'dd/MM/yyyy HH:mm'" [term]="display_service['filter_term']"></ngb-highlight></td>
+                          <td class="align-middle" [ngClass]="{ 'text-success':  ['task_executed', 'standard_control_executed', 'key_control_executed', 'compensating_control_executed'].includes(update['type']), 'text-warning': update['type'] === 'deviation', 'text-primary':  ['update'].includes(update['type']), 'text-danger': ['validation_failed', 'invalid_element'].includes(update['type']) }"><ngb-highlight [result]="update['type']" [term]="display_service['filter_term']"></ngb-highlight></td>
+                          <td class="align-middle"><ngb-highlight [result]="update['element']" [term]="display_service['filter_term']"></ngb-highlight></td>
+                        </tr>
+                      </ng-container>
+                      <ng-template #empty_table>
+                        <tr>
+                          <td align="center" colspan="4">NO ENTRY FOUND</td>
+                        </tr>
+                      </ng-template>
+                    </ng-template>
+                  </tbody>
+                </table>
+
+              </div>
+
+              <div class="d-flex justify-content-between p-2">
+                <ngb-pagination [collectionSize]="(total_number_of_updates | async)!" [(page)]="display_service['current_page']" [pageSize]="display_service['page_size']">
+                </ngb-pagination>
+
+                <select class="custom-select" style="width: auto" name="page_size" [(ngModel)]="display_service['page_size']">
+                  <option [ngValue]="5">5 items per page</option>
+                  <option [ngValue]="10">10 items per page</option>
+                  <option [ngValue]="25">25 items per page</option>
+                  <option [ngValue]="50">50 items per page</option>
+                </select>
+              </div>
+            </ng-template>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #error_template>
+  <div fxFlex style="overflow: auto">
+    <ul>
+      <li>ERROR</li>
+      <li *ngFor="let field of error.error | keyvalue">
+        {{ field.key }} : {{ field.value }}
+      </li>
+    </ul>
+  </div>
+</ng-template>
+
+<ng-template #signature let-data="data">{{ data }}</ng-template>
+<ng-template #display_data>
+  <div class="modal-body text-center bg-light text-dark">
+    <div class="mb-4">
+      <textarea disabled rows="12" style="resize: none" class="form-control bg-light" id="options" name="options" aria-describedby="options-description">{{ instance['resources']['data'] | json }}</textarea>
+    </div>
+    <div class="btn-toolbar justify-content-center" role="toolbar" aria-label="Actions">
+      <div class="btn-group mr-2" role="group">
+        <button type="button" class="btn btn-dark" (click)="data_modal.hide()">Close</button>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<ng-template #display_options>
+  <div class="modal-body text-center bg-light text-dark">
+    <div class="mb-4">
+      <textarea disabled rows="12" style="resize: none" class="form-control bg-light" id="options" name="options" aria-describedby="options-description">{{ instance['resources']['options'] | json }}</textarea>
+    </div>
+    <div class="btn-toolbar justify-content-center" role="toolbar" aria-label="Actions">
+      <div class="btn-group mr-2" role="group">
+        <button type="button" class="btn btn-dark" (click)="options_modal.hide()">Close</button>
+      </div>
+    </div>
+  </div>
+</ng-template>

@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31005.135
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "Track and Trace", "Track and Trace.njsproj", "{339B576B-47B9-4FCF-B459-6742F165CC33}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{339B576B-47B9-4FCF-B459-6742F165CC33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{339B576B-47B9-4FCF-B459-6742F165CC33}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{339B576B-47B9-4FCF-B459-6742F165CC33}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{339B576B-47B9-4FCF-B459-6742F165CC33}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A3FA8B4C-1CBC-4AF8-96D6-B8189C0267CB}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,4 @@
+<div fxFlexFill fxLayout="row" class="modeler">
+  <div fxLayout="column" fxFlex><div fxFill id="canvas" #canvas></div><div class="position-absolute" style="top: 20px; left: 50%; transform: translate(-50%,0)"><h5><span *ngIf="!has_errors; else display_errors" class="badge badge-success p-3">BPMN model is valid</span><ng-template #display_errors><span class="badge p-3" [ngClass]="{ 'badge-danger': nb_errors > 0, 'badge-warning': nb_errors === 0 }">{{ nb_errors > 0 ? nb_errors + ' error' + ( nb_errors > 1 ? 's' : '') : '' }}{{ (nb_errors > 0) && (nb_warnings > 0) ? ' | ' : '' }}{{ nb_warnings > 0 ? nb_warnings + ' warning' + ( nb_warnings > 1 ? 's' : '') : '' }}</span></ng-template></h5></div></div>
+  <div *ngIf="['creation', 'edition'].includes(this.mode)" fxLayout="column"> <div class="properties-panel bg-light" id="properties"></div></div>
+</div>

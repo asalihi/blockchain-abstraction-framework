@@ -1,0 +1,22 @@
+import { Fees, Range } from './types';
+
+export const DLT_NETWORKS: string[] = ['bloxberg', 'corda', 'ethereum', 'fabric', 'monero', 'tezos'];
+export const SUPPORTED_NETWORKS: string[] = DLT_NETWORKS;
+export const ARCHITECTURE_TYPES: string[] = ['public', 'permissioned'];
+export const CONSENSUS_ALGORITHMS: string[] = ['poa', 'pos', 'pow', 'raft'];
+export const GOVERNANCE_TYPES: string[] = ['decentralized', 'non-profit', 'commercial'];
+export const IMMUTABILITY_TYPES: string[] = ['definitive', 'probabilistic'];
+export const SMART_CONTRACT_LANGUAGES: string[] = ['Solidity', 'Java', 'JavaScript', 'Go'];
+export const SCALABILITY_LEVELS: string[] = ['low', 'high'];
+export const SUPPORTED_PLATFORMS_FOR_STORAGE: string[] = [...ARCHITECTURE_TYPES, 'ipfs', 'local'];
+export const SUPPORTED_SECOND_UNITS: string[] = ['s', 'sec', 'second', 'seconds'];
+export const SUPPORTED_MINUTE_UNITS: string[] = ['min', 'minute', 'minutes'];
+export const SUPPORTED_TIME_UNITS: string[] = [...SUPPORTED_SECOND_UNITS, ...SUPPORTED_MINUTE_UNITS];
+export const LOW_FEES: Range = { min: 0, max: 0.5 };
+export const MEDIUM_FEES: Range = { min: 0.5, max: 1 };
+export const HIGH_FEES: Range = { min: 1, max: Number.MAX_SAFE_INTEGER };
+export const FEES_LEVELS: Fees = { 'low': LOW_FEES, 'medium': MEDIUM_FEES, 'high': HIGH_FEES };
+export const LOW_THROUGHPUT: Range = { min: 0, max: 0.5 };
+export const AVERAGE_THROUGHPUT: Range = { min: 0.5, max: 1 };
+export const HIGH_THROUGHPUT: Range = { min: 1, max: Number.MAX_SAFE_INTEGER };
+export const THROUGHPUT_LEVELS: Fees = { 'low': LOW_THROUGHPUT, 'medium': AVERAGE_THROUGHPUT, 'high': HIGH_THROUGHPUT };

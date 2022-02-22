@@ -1,0 +1,161 @@
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">14.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <Name>Track and Trace</Name>
+    <RootNamespace>Track and Trace</RootNamespace>
+    <TypeScriptCompileBlocked>true</TypeScriptCompileBlocked>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>339b576b-47b9-4fcf-b459-6742f165cc33</ProjectGuid>
+    <ProjectHome>.</ProjectHome>
+    <StartupFile>
+    </StartupFile>
+    <StartWebBrowser>False</StartWebBrowser>
+    <SearchPath>
+    </SearchPath>
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <ProjectTypeGuids>{3AF33F2E-1136-4D97-BBB7-1795711AC8B8};{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}</ProjectTypeGuids>
+    <EnableTypeScript>true</EnableTypeScript>
+    <StartWebBrowser>false</StartWebBrowser>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include=".env" />
+    <Content Include="config\custom-environment-variables.js" />
+    <Content Include="config\development.js" />
+    <Content Include="package.json" />
+    <Content Include="README.md" />
+    <Content Include="tsconfig.json" />
+    <Content Include="webpack.config.js" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="config\" />
+    <Folder Include="src\" />
+    <Folder Include="src\constants\" />
+    <Folder Include="src\controllers\" />
+    <Folder Include="src\database\" />
+    <Folder Include="src\database\instances\" />
+    <Folder Include="src\database\traces\" />
+    <Folder Include="src\database\processes\" />
+    <Folder Include="src\database\traces\instances\" />
+    <Folder Include="src\database\traces\processes\" />
+    <Folder Include="src\database\traces\elements\" />
+    <Folder Include="src\database\traces\versions\" />
+    <Folder Include="src\database\versions\" />
+    <Folder Include="src\errors\" />
+    <Folder Include="src\rabbitmq\" />
+    <Folder Include="src\routines\" />
+    <Folder Include="src\server\" />
+    <Folder Include="src\server\middlewares\" />
+    <Folder Include="src\server\router\" />
+    <Folder Include="src\server\router\protected\" />
+    <Folder Include="src\server\router\unprotected\" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="src\constants\crypto.ts" />
+    <TypeScriptCompile Include="src\constants\constants.ts" />
+    <TypeScriptCompile Include="src\constants\errors.ts" />
+    <TypeScriptCompile Include="src\cli.ts" />
+    <TypeScriptCompile Include="src\controllers\verifier.ts" />
+    <TypeScriptCompile Include="src\controllers\converter.ts" />
+    <TypeScriptCompile Include="src\controllers\controller.ts" />
+    <TypeScriptCompile Include="src\database\database.ts" />
+    <TypeScriptCompile Include="src\database\instances\instance.controller.ts" />
+    <TypeScriptCompile Include="src\database\instances\instance.interface.ts" />
+    <TypeScriptCompile Include="src\database\instances\instance.model.ts" />
+    <TypeScriptCompile Include="src\database\instances\instance.ts" />
+    <TypeScriptCompile Include="src\database\traces\instances\trace.controller.ts" />
+    <TypeScriptCompile Include="src\database\traces\instances\trace.interface.ts" />
+    <TypeScriptCompile Include="src\database\traces\instances\trace.model.ts" />
+    <TypeScriptCompile Include="src\database\traces\instances\trace.ts" />
+    <TypeScriptCompile Include="src\database\traces\processes\trace.controller.ts" />
+    <TypeScriptCompile Include="src\database\traces\processes\trace.interface.ts" />
+    <TypeScriptCompile Include="src\database\traces\processes\trace.model.ts" />
+    <TypeScriptCompile Include="src\database\traces\processes\trace.ts" />
+    <TypeScriptCompile Include="src\database\traces\elements\trace.controller.ts" />
+    <TypeScriptCompile Include="src\database\traces\elements\trace.interface.ts" />
+    <TypeScriptCompile Include="src\database\traces\elements\trace.model.ts" />
+    <TypeScriptCompile Include="src\database\traces\elements\trace.ts" />
+    <TypeScriptCompile Include="src\database\traces\trace.controller.ts" />
+    <TypeScriptCompile Include="src\database\traces\trace.interface.ts" />
+    <TypeScriptCompile Include="src\database\traces\trace.model.ts" />
+    <TypeScriptCompile Include="src\database\traces\trace.ts" />
+    <TypeScriptCompile Include="src\database\processes\process.controller.ts" />
+    <TypeScriptCompile Include="src\database\processes\process.interface.ts" />
+    <TypeScriptCompile Include="src\database\processes\process.model.ts" />
+    <TypeScriptCompile Include="src\database\processes\process.ts" />
+    <TypeScriptCompile Include="src\database\traces\versions\trace.controller.ts" />
+    <TypeScriptCompile Include="src\database\traces\versions\trace.interface.ts" />
+    <TypeScriptCompile Include="src\database\traces\versions\trace.model.ts" />
+    <TypeScriptCompile Include="src\database\traces\versions\trace.ts" />
+    <TypeScriptCompile Include="src\database\versions\version.controller.ts" />
+    <TypeScriptCompile Include="src\database\versions\version.interface.ts" />
+    <TypeScriptCompile Include="src\database\versions\version.model.ts" />
+    <TypeScriptCompile Include="src\database\versions\version.ts" />
+    <TypeScriptCompile Include="src\database\schemata.ts" />
+    <TypeScriptCompile Include="src\errors\controller.ts" />
+    <TypeScriptCompile Include="src\errors\api.ts" />
+    <TypeScriptCompile Include="src\errors\errors.ts" />
+    <TypeScriptCompile Include="src\index.ts" />
+    <TypeScriptCompile Include="src\rabbitmq\rabbitmq.ts" />
+    <TypeScriptCompile Include="src\routines\routines.ts" />
+    <TypeScriptCompile Include="src\server\express.ts" />
+    <TypeScriptCompile Include="src\server\middlewares\api.ts" />
+    <TypeScriptCompile Include="src\server\router\keystore.ts" />
+    <TypeScriptCompile Include="src\server\router\unprotected\router.ts" />
+    <TypeScriptCompile Include="src\server\router\protected\router.ts" />
+    <TypeScriptCompile Include="src\server\router\protected\track-and-trace.ts" />
+    <TypeScriptCompile Include="src\server\router\unprotected\routes.ts" />
+    <TypeScriptCompile Include="src\server\server.ts" />
+  </ItemGroup>
+  <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsToolsV2.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>0</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:48022/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>True</UseCustomServer>
+          <CustomServerUrl>http://localhost:1337</CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}" User="">
+        <WebProjectProperties>
+          <StartPageUrl>
+          </StartPageUrl>
+          <StartAction>CurrentPage</StartAction>
+          <AspNetDebugging>True</AspNetDebugging>
+          <SilverlightDebugging>False</SilverlightDebugging>
+          <NativeDebugging>False</NativeDebugging>
+          <SQLDebugging>False</SQLDebugging>
+          <ExternalProgram>
+          </ExternalProgram>
+          <StartExternalURL>
+          </StartExternalURL>
+          <StartCmdLineArguments>
+          </StartCmdLineArguments>
+          <StartWorkingDirectory>
+          </StartWorkingDirectory>
+          <EnableENC>False</EnableENC>
+          <AlwaysStartWebServerOnDebug>False</AlwaysStartWebServerOnDebug>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

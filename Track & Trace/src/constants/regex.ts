@@ -1,0 +1,2 @@
+export const KEY_REFERENCE_TEMPLATE_REGEX: RegExp = /\$REFERENCE:(?<context>((PROCESS)|(VERSION)|(INSTANCE)|(TASK))):(?<key>([^$]+))\$/g;
+export const KEY_REFERENCE_TEMPLATE_STRICT_REGEX: RegExp = /^\$REFERENCE:(?<context>((PROCESS)|(VERSION)|(INSTANCE)|(TASK))):(?<key>([^$]+))\$$/g;

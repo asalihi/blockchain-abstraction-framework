@@ -1,0 +1,19 @@
+<div fxFlexFill fxLayout="column">
+  <div fxFlex>
+    <div fxFlexFill fxLayout="column">
+      <div fxFlex class="text-center jumbotron bg-light m-0">
+        <div class="display-2">Hello!</div>
+        <div class="lead text-muted mb-5">
+          <div *ngIf="user; else visitor">
+            You are on the homepage of <b>{{user?.username}}</b> ({{user?.role}})
+          </div>
+          <ng-template #visitor>
+            <div>
+              You are on the visitor page.
+            </div>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

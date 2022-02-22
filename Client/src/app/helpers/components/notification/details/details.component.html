@@ -1,0 +1,18 @@
+<div *ngIf="data && (data['headers'] || data['content'])" class="card text-justify" [ngClass]="get_container_classes()" [ngStyle]="get_container_styles()">
+  <div *ngIf="data['headers']" class="card-title text-center p-3 m-0" [ngClass]="get_title_classes()">
+    <div class="row">
+      <div *ngFor="let header of data['headers'] | slice:0:2" class="col-sm">
+        <h5 class="h-5 font-weight-bold m-0">{{ header['title'] | uppercase }}</h5>
+        <div class="font-weight-bold">{{ header['value'] }}</div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="data['content']" class="card-content p-3 m-0" [ngClass]="get_content_classes()">
+    <div *ngFor="let info of data['content'] | slice:0:3" class="row pl-2 pr-2 mb-3">
+      <div class="col-sm">
+        <h5 class="h-5 font-weight-bold">{{ info['title'] }}</h5>
+        <div>{{ info['value'] }}</div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,34 @@
+{
+  "name": "listeners",
+  "version": "1.0.0",
+  "description": "This tool defines smart contract listeners for Hyperledger Fabric and Ethereum",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npm run clean && npm run compile",
+    "clean": "ttsc --build --clean && shx rm -rf dist",
+    "compile": "ttsc --declaration --declarationMap",
+    "dev": "npm run build && npm run start:dev",
+    "start:dev": "nodemon -r tsconfig-paths/register --exec ts-node -- ./src/index.ts",
+    "prod": "npm run build && npm run start:prod",
+    "start:prod": "node -r ts-node/register -r tsconfig-paths/register ./dist/index.js"
+  },
+  "author": "Arbër Salihi",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/config": "^0.0.39",
+    "copyfiles": "^2.4.1",
+    "nodemon": "^2.0.13",
+    "shx": "^0.3.3",
+    "ts-node": "^10.3.0",
+    "tsconfig-paths": "^3.11.0",
+    "ttypescript": "^1.5.12",
+    "typescript": "^4.4.4",
+    "typescript-transform-paths": "^3.3.1"
+  },
+  "dependencies": {
+    "config": "^3.3.6",
+    "fabric-network": "^2.2.10",
+    "web3": "^1.6.0"
+  }
+}

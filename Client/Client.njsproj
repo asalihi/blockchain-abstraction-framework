@@ -1,0 +1,356 @@
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">14.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <Name>Client</Name>
+    <RootNamespace>Client</RootNamespace>
+    <EnableTypeScript>true</EnableTypeScript>
+    <TypeScriptSourceMap>true</TypeScriptSourceMap>
+    <TypeScriptModuleKind>CommonJS</TypeScriptModuleKind>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>3e98e92e-9d1b-4a01-a540-a720fc057d02</ProjectGuid>
+    <ProjectHome>.</ProjectHome>
+    <StartupFile>
+    </StartupFile>
+    <StartWebBrowser>False</StartWebBrowser>
+    <SearchPath>
+    </SearchPath>
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <ProjectTypeGuids>{3AF33F2E-1136-4D97-BBB7-1795711AC8B8};{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}</ProjectTypeGuids>
+    <StartWebBrowser>false</StartWebBrowser>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="dist\" />
+    <Folder Include="e2e\" />
+    <Folder Include="e2e\src\" />
+    <Folder Include="src\" />
+    <Folder Include="src\app\" />
+    <Folder Include="src\app\authentication\" />
+    <Folder Include="src\app\authentication\login\" />
+    <Folder Include="src\app\helpers\" />
+    <Folder Include="src\app\helpers\components\" />
+    <Folder Include="src\app\helpers\components\bpmn-modeler\" />
+    <Folder Include="src\app\helpers\components\forms\dropdown\" />
+    <Folder Include="src\app\helpers\components\modals\" />
+    <Folder Include="src\app\helpers\components\modals\confirm-delete\" />
+    <Folder Include="src\app\helpers\components\modals\json-input\" />
+    <Folder Include="src\app\helpers\components\modals\display-modeler\" />
+    <Folder Include="src\app\helpers\components\forms\" />
+    <Folder Include="src\app\helpers\components\notification\" />
+    <Folder Include="src\app\helpers\components\notification\details\" />
+    <Folder Include="src\app\helpers\constants\" />
+    <Folder Include="src\app\helpers\constants\track-and-trace\" />
+    <Folder Include="src\app\helpers\directives\" />
+    <Folder Include="src\app\helpers\guards\" />
+    <Folder Include="src\app\helpers\handlers\" />
+    <Folder Include="src\app\helpers\interceptors\" />
+    <Folder Include="src\app\helpers\models\" />
+    <Folder Include="src\app\helpers\models\track-and-trace\" />
+    <Folder Include="src\app\helpers\resolvers\track-and-trace\traces\" />
+    <Folder Include="src\app\helpers\services\track-and-trace\traces\" />
+    <Folder Include="src\app\helpers\validators\" />
+    <Folder Include="src\app\helpers\resolvers\" />
+    <Folder Include="src\app\helpers\resolvers\track-and-trace\" />
+    <Folder Include="src\app\helpers\resolvers\track-and-trace\instances\" />
+    <Folder Include="src\app\helpers\resolvers\track-and-trace\versions\" />
+    <Folder Include="src\app\helpers\resolvers\track-and-trace\processes\" />
+    <Folder Include="src\app\helpers\services\" />
+    <Folder Include="src\app\helpers\services\track-and-trace\" />
+    <Folder Include="src\app\helpers\services\track-and-trace\instances\" />
+    <Folder Include="src\app\helpers\services\track-and-trace\versions\" />
+    <Folder Include="src\app\helpers\services\track-and-trace\processes\" />
+    <Folder Include="src\app\helpers\utils\" />
+    <Folder Include="src\app\helpers\validators\track-and-trace\" />
+    <Folder Include="src\app\home\" />
+    <Folder Include="src\app\interact\" />
+    <Folder Include="src\app\interact\home\" />
+    <Folder Include="src\app\interact\patterns\" />
+    <Folder Include="src\app\manage\" />
+    <Folder Include="src\app\manage\ethereum\" />
+    <Folder Include="src\app\manage\home\" />
+    <Folder Include="src\app\notfound\" />
+    <Folder Include="src\app\settings\" />
+    <Folder Include="src\app\settings\home\" />
+    <Folder Include="src\app\settings\users\" />
+    <Folder Include="src\app\tools\" />
+    <Folder Include="src\app\tools\cryptography\" />
+    <Folder Include="src\app\tools\cryptography\fingerprints\" />
+    <Folder Include="src\app\tools\cryptography\signatures\" />
+    <Folder Include="src\app\tools\dashboard\" />
+    <Folder Include="src\app\tools\home\" />
+    <Folder Include="src\app\track-and-trace\" />
+    <Folder Include="src\app\track-and-trace\instances\manage\" />
+    <Folder Include="src\app\track-and-trace\traces\view\" />
+    <Folder Include="src\app\track-and-trace\versions\" />
+    <Folder Include="src\app\track-and-trace\traces\" />
+    <Folder Include="src\app\track-and-trace\dashboard\" />
+    <Folder Include="src\app\track-and-trace\home\" />
+    <Folder Include="src\app\track-and-trace\instances\" />
+    <Folder Include="src\app\track-and-trace\instances\create\list-processes\" />
+    <Folder Include="src\app\track-and-trace\instances\create\list-versions\" />
+    <Folder Include="src\app\track-and-trace\instances\list\" />
+    <Folder Include="src\app\track-and-trace\instances\create\" />
+    <Folder Include="src\app\track-and-trace\instances\view\" />
+    <Folder Include="src\app\track-and-trace\processes\" />
+    <Folder Include="src\app\track-and-trace\processes\create\" />
+    <Folder Include="src\app\track-and-trace\processes\list\" />
+    <Folder Include="src\app\track-and-trace\processes\view\" />
+    <Folder Include="src\app\track-and-trace\versions\create\" />
+    <Folder Include="src\app\track-and-trace\versions\view\" />
+    <Folder Include="src\assets\" />
+    <Folder Include="src\environments\" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="e2e\src\app.e2e-spec.ts" />
+    <TypeScriptCompile Include="e2e\src\app.po.ts" />
+    <TypeScriptCompile Include="src\app\app-routing.module.ts" />
+    <TypeScriptCompile Include="src\app\app.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\app.component.ts" />
+    <TypeScriptCompile Include="src\app\app.module.ts" />
+    <TypeScriptCompile Include="src\app\authentication\authentication-routing.module.ts" />
+    <TypeScriptCompile Include="src\app\authentication\authentication.module.ts" />
+    <TypeScriptCompile Include="src\app\authentication\login\login.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\authentication\login\login.component.ts" />
+    <TypeScriptCompile Include="src\app\helpers\components\bpmn-modeler\bpmn-modeler.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\helpers\components\bpmn-modeler\bpmn-modeler.component.ts" />
+    <None Include="src\app\helpers\components\forms\dropdown\dropdown.component.spec.ts" />
+    <None Include="src\app\helpers\components\forms\dropdown\dropdown.component.ts" />
+    <TypeScriptCompile Include="src\app\helpers\components\modals\confirm-delete\confirm-delete.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\helpers\components\modals\confirm-delete\confirm-delete.component.ts" />
+    <TypeScriptCompile Include="src\app\helpers\components\modals\json-input\json-input.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\helpers\components\modals\json-input\json-input.component.ts" />
+    <TypeScriptCompile Include="src\app\helpers\components\modals\display-modeler\display-modeler.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\helpers\components\modals\display-modeler\display-modeler.component.ts" />
+    <TypeScriptCompile Include="src\app\helpers\components\notification\details\details.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\helpers\components\notification\details\details.component.ts" />
+    <TypeScriptCompile Include="src\app\helpers\components\notification\notification.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\helpers\components\notification\notification.component.ts" />
+    <TypeScriptCompile Include="src\app\helpers\constants\constants.ts" />
+    <TypeScriptCompile Include="src\app\helpers\constants\track-and-trace\constants.ts" />
+    <TypeScriptCompile Include="src\app\helpers\directives\sortable.directive.ts" />
+    <TypeScriptCompile Include="src\app\helpers\guards\authentication.guard.ts" />
+    <TypeScriptCompile Include="src\app\helpers\handlers\error.handler.ts" />
+    <TypeScriptCompile Include="src\app\helpers\interceptors\credentials.interceptor.ts" />
+    <TypeScriptCompile Include="src\app\helpers\interceptors\error.interceptor.ts" />
+    <TypeScriptCompile Include="src\app\helpers\models\role.ts" />
+    <TypeScriptCompile Include="src\app\helpers\models\table.ts" />
+    <TypeScriptCompile Include="src\app\helpers\models\track-and-trace\trace.ts" />
+    <TypeScriptCompile Include="src\app\helpers\models\track-and-trace\process.ts" />
+    <TypeScriptCompile Include="src\app\helpers\models\track-and-trace\instance.ts" />
+    <TypeScriptCompile Include="src\app\helpers\models\track-and-trace\version.ts" />
+    <TypeScriptCompile Include="src\app\helpers\models\user.ts" />
+    <TypeScriptCompile Include="src\app\helpers\resolvers\track-and-trace\traces\trace.resolver.ts" />
+    <TypeScriptCompile Include="src\app\helpers\resolvers\track-and-trace\instances\instance.resolver.ts" />
+    <TypeScriptCompile Include="src\app\helpers\resolvers\track-and-trace\processes\process.resolver.ts" />
+    <TypeScriptCompile Include="src\app\helpers\resolvers\track-and-trace\versions\version.resolver.ts" />
+    <TypeScriptCompile Include="src\app\helpers\services\authentication.service.ts" />
+    <TypeScriptCompile Include="src\app\helpers\services\display-elements.service.ts" />
+    <TypeScriptCompile Include="src\app\helpers\services\notification.service.ts" />
+    <TypeScriptCompile Include="src\app\helpers\services\track-and-trace\instances\controller.service.spec.ts" />
+    <TypeScriptCompile Include="src\app\helpers\services\track-and-trace\instances\controller.service.ts" />
+    <TypeScriptCompile Include="src\app\helpers\services\track-and-trace\traces\display-traces.service.ts" />
+    <TypeScriptCompile Include="src\app\helpers\services\track-and-trace\traces\display-traces.service.spec.ts" />
+    <TypeScriptCompile Include="src\app\helpers\services\track-and-trace\instances\display-instances.service.spec.ts" />
+    <TypeScriptCompile Include="src\app\helpers\services\track-and-trace\instances\display-instances.service.ts" />
+    <TypeScriptCompile Include="src\app\helpers\services\track-and-trace\processes\controller.service.spec.ts" />
+    <TypeScriptCompile Include="src\app\helpers\services\track-and-trace\processes\controller.service.ts" />
+    <TypeScriptCompile Include="src\app\helpers\services\track-and-trace\processes\display-processes.service.spec.ts" />
+    <TypeScriptCompile Include="src\app\helpers\services\track-and-trace\processes\display-processes.service.ts" />
+    <TypeScriptCompile Include="src\app\helpers\services\track-and-trace\traces\controller.service.spec.ts" />
+    <TypeScriptCompile Include="src\app\helpers\services\track-and-trace\traces\controller.service.ts" />
+    <TypeScriptCompile Include="src\app\helpers\services\track-and-trace\versions\controller.service.spec.ts" />
+    <TypeScriptCompile Include="src\app\helpers\services\track-and-trace\versions\controller.service.ts" />
+    <TypeScriptCompile Include="src\app\helpers\services\track-and-trace\versions\display-versions.service.spec.ts" />
+    <TypeScriptCompile Include="src\app\helpers\services\track-and-trace\versions\display-versions.service.ts" />
+    <TypeScriptCompile Include="src\app\helpers\utils\functions.ts" />
+    <TypeScriptCompile Include="src\app\helpers\utils\resolver.ts" />
+    <TypeScriptCompile Include="src\app\helpers\validators\optional.validator.ts" />
+    <TypeScriptCompile Include="src\app\helpers\validators\track-and-trace\version.validator.ts" />
+    <TypeScriptCompile Include="src\app\helpers\validators\track-and-trace\process.validator.ts" />
+    <TypeScriptCompile Include="src\app\helpers\validators\json.validator.ts">
+      <SubType>Code</SubType>
+    </TypeScriptCompile>
+    <TypeScriptCompile Include="src\app\home\home.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\home\home.component.ts" />
+    <TypeScriptCompile Include="src\app\interact\home\home.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\interact\home\home.component.ts" />
+    <TypeScriptCompile Include="src\app\interact\interact-routing.module.ts" />
+    <TypeScriptCompile Include="src\app\interact\interact.module.ts" />
+    <TypeScriptCompile Include="src\app\interact\patterns\patterns.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\interact\patterns\patterns.component.ts" />
+    <TypeScriptCompile Include="src\app\manage\ethereum\ethereum.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\manage\ethereum\ethereum.component.ts" />
+    <TypeScriptCompile Include="src\app\manage\home\home.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\manage\home\home.component.ts" />
+    <TypeScriptCompile Include="src\app\manage\manage-routing.module.ts" />
+    <TypeScriptCompile Include="src\app\manage\manage.module.ts" />
+    <TypeScriptCompile Include="src\app\notfound\notfound.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\notfound\notfound.component.ts" />
+    <TypeScriptCompile Include="src\app\settings\home\home.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\settings\home\home.component.ts" />
+    <TypeScriptCompile Include="src\app\settings\settings-routing.module.ts" />
+    <TypeScriptCompile Include="src\app\settings\settings.module.ts" />
+    <TypeScriptCompile Include="src\app\settings\users\users.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\settings\users\users.component.ts" />
+    <TypeScriptCompile Include="src\app\tools\cryptography\cryptography.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\tools\cryptography\cryptography.component.ts" />
+    <TypeScriptCompile Include="src\app\tools\cryptography\fingerprints\fingerprints.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\tools\cryptography\fingerprints\fingerprints.component.ts" />
+    <TypeScriptCompile Include="src\app\tools\cryptography\signatures\signatures.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\tools\cryptography\signatures\signatures.component.ts" />
+    <TypeScriptCompile Include="src\app\tools\dashboard\dashboard.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\tools\dashboard\dashboard.component.ts" />
+    <TypeScriptCompile Include="src\app\tools\home\home.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\tools\home\home.component.ts" />
+    <TypeScriptCompile Include="src\app\tools\tools-routing.module.ts" />
+    <TypeScriptCompile Include="src\app\tools\tools.module.ts" />
+    <TypeScriptCompile Include="src\app\track-and-trace\dashboard\dashboard.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\track-and-trace\dashboard\dashboard.component.ts" />
+    <TypeScriptCompile Include="src\app\track-and-trace\home\home.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\track-and-trace\home\home.component.ts" />
+    <None Include="src\app\track-and-trace\instances\create\create.component.spec.ts" />
+    <None Include="src\app\track-and-trace\instances\create\create.component.ts" />
+    <None Include="src\app\track-and-trace\instances\list\list.component.spec.ts" />
+    <None Include="src\app\track-and-trace\instances\list\list.component.ts" />
+    <TypeScriptCompile Include="src\app\track-and-trace\instances\create\list-processes\list-processes.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\track-and-trace\instances\create\list-processes\list-processes.component.ts" />
+    <TypeScriptCompile Include="src\app\track-and-trace\instances\create\list-versions\list-versions.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\track-and-trace\instances\create\list-versions\list-versions.component.ts" />
+    <TypeScriptCompile Include="src\app\track-and-trace\instances\manage\manage.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\track-and-trace\instances\manage\manage.component.ts" />
+    <TypeScriptCompile Include="src\app\track-and-trace\instances\view\view.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\track-and-trace\instances\view\view.component.ts" />
+    <TypeScriptCompile Include="src\app\track-and-trace\traces\view\view.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\track-and-trace\traces\view\view.component.ts" />
+    <TypeScriptCompile Include="src\app\track-and-trace\versions\create\create.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\track-and-trace\versions\create\create.component.ts" />
+    <TypeScriptCompile Include="src\app\track-and-trace\processes\create\create.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\track-and-trace\processes\create\create.component.ts" />
+    <TypeScriptCompile Include="src\app\track-and-trace\processes\list\list.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\track-and-trace\processes\list\list.component.ts" />
+    <TypeScriptCompile Include="src\app\track-and-trace\versions\view\view.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\track-and-trace\versions\view\view.component.ts" />
+    <TypeScriptCompile Include="src\app\track-and-trace\processes\view\view.component.spec.ts" />
+    <TypeScriptCompile Include="src\app\track-and-trace\processes\view\view.component.ts" />
+    <TypeScriptCompile Include="src\app\track-and-trace\track-and-trace-routing.module.ts" />
+    <TypeScriptCompile Include="src\app\track-and-trace\track-and-trace.module.ts" />
+    <TypeScriptCompile Include="src\declarations.d.ts" />
+    <TypeScriptCompile Include="src\environments\environment.prod.ts" />
+    <TypeScriptCompile Include="src\environments\environment.ts" />
+    <TypeScriptCompile Include="src\main.ts" />
+    <TypeScriptCompile Include="src\polyfills.ts" />
+    <TypeScriptCompile Include="src\test.ts" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include=".editorconfig" />
+    <Content Include=".gitignore" />
+    <Content Include="angular.json" />
+    <Content Include="browserslist" />
+    <Content Include="e2e\protractor.conf.js" />
+    <Content Include="e2e\tsconfig.json" />
+    <Content Include="karma.conf.js" />
+    <Content Include="package-lock.json" />
+    <Content Include="package.json" />
+    <Content Include="README.md" />
+    <Content Include="src\.DS_Store" />
+    <Content Include="src\app\.DS_Store" />
+    <Content Include="src\app\app.component.html" />
+    <Content Include="src\app\app.component.sass" />
+    <Content Include="src\app\authentication\login\login.component.html" />
+    <Content Include="src\app\authentication\login\login.component.sass" />
+    <Content Include="src\app\helpers\components\bpmn-modeler\.bpmnlintrc" />
+    <Content Include="src\app\helpers\components\bpmn-modeler\bpmn-modeler.component.css" />
+    <Content Include="src\app\helpers\components\bpmn-modeler\bpmn-modeler.component.html" />
+    <Content Include="src\app\helpers\components\bpmn-modeler\bpmn-modeler.component.sass" />
+    <Content Include="src\app\helpers\components\forms\dropdown\dropdown.component.html" />
+    <Content Include="src\app\helpers\components\forms\dropdown\dropdown.component.sass" />
+    <Content Include="src\app\helpers\components\modals\confirm-delete\confirm-delete.component.html" />
+    <Content Include="src\app\helpers\components\modals\confirm-delete\confirm-delete.component.sass" />
+    <Content Include="src\app\helpers\components\modals\json-input\json-input.component.html" />
+    <Content Include="src\app\helpers\components\modals\json-input\json-input.component.sass" />
+    <Content Include="src\app\helpers\components\modals\display-modeler\display-modeler.component.html" />
+    <Content Include="src\app\helpers\components\modals\display-modeler\display-modeler.component.sass" />
+    <Content Include="src\app\helpers\components\notification\details\details.component.html" />
+    <Content Include="src\app\helpers\components\notification\details\details.component.sass" />
+    <Content Include="src\app\helpers\components\notification\notification.component.html" />
+    <Content Include="src\app\helpers\components\notification\notification.component.sass" />
+    <Content Include="src\app\home\home.component.html" />
+    <Content Include="src\app\home\home.component.sass" />
+    <Content Include="src\app\interact\home\home.component.html" />
+    <Content Include="src\app\interact\home\home.component.sass" />
+    <Content Include="src\app\interact\patterns\patterns.component.html" />
+    <Content Include="src\app\interact\patterns\patterns.component.sass" />
+    <Content Include="src\app\manage\ethereum\ethereum.component.html" />
+    <Content Include="src\app\manage\ethereum\ethereum.component.sass" />
+    <Content Include="src\app\manage\home\home.component.html" />
+    <Content Include="src\app\manage\home\home.component.sass" />
+    <Content Include="src\app\notfound\notfound.component.html" />
+    <Content Include="src\app\notfound\notfound.component.sass" />
+    <Content Include="src\app\settings\home\home.component.html" />
+    <Content Include="src\app\settings\home\home.component.sass" />
+    <Content Include="src\app\settings\users\users.component.html" />
+    <Content Include="src\app\settings\users\users.component.sass" />
+    <Content Include="src\app\tools\cryptography\cryptography.component.html" />
+    <Content Include="src\app\tools\cryptography\cryptography.component.sass" />
+    <Content Include="src\app\tools\cryptography\fingerprints\fingerprints.component.html" />
+    <Content Include="src\app\tools\cryptography\fingerprints\fingerprints.component.sass" />
+    <Content Include="src\app\tools\cryptography\signatures\signatures.component.html" />
+    <Content Include="src\app\tools\cryptography\signatures\signatures.component.sass" />
+    <Content Include="src\app\tools\dashboard\dashboard.component.html" />
+    <Content Include="src\app\tools\dashboard\dashboard.component.sass" />
+    <Content Include="src\app\tools\home\home.component.html" />
+    <Content Include="src\app\tools\home\home.component.sass" />
+    <Content Include="src\app\track-and-trace\instances\manage\manage.component.html" />
+    <Content Include="src\app\track-and-trace\instances\manage\manage.component.sass" />
+    <Content Include="src\app\track-and-trace\dashboard\dashboard.component.html" />
+    <Content Include="src\app\track-and-trace\dashboard\dashboard.component.sass" />
+    <Content Include="src\app\track-and-trace\home\home.component.html" />
+    <Content Include="src\app\track-and-trace\home\home.component.sass" />
+    <Content Include="src\app\track-and-trace\home\home.component.spec.js" />
+    <Content Include="src\app\track-and-trace\home\home.component.spec.js.map" />
+    <Content Include="src\app\track-and-trace\instances\create\create.component.html" />
+    <Content Include="src\app\track-and-trace\instances\create\create.component.sass" />
+    <Content Include="src\app\track-and-trace\instances\create\list-processes\list-processes.component.html" />
+    <Content Include="src\app\track-and-trace\instances\create\list-processes\list-processes.component.sass" />
+    <Content Include="src\app\track-and-trace\instances\create\list-versions\list-versions.component.html" />
+    <Content Include="src\app\track-and-trace\instances\create\list-versions\list-versions.component.sass" />
+    <Content Include="src\app\track-and-trace\instances\list\list.component.html" />
+    <Content Include="src\app\track-and-trace\instances\list\list.component.sass" />
+    <Content Include="src\app\track-and-trace\instances\view\view.component.html" />
+    <Content Include="src\app\track-and-trace\instances\view\view.component.sass" />
+    <Content Include="src\app\track-and-trace\traces\view\view.component.html" />
+    <Content Include="src\app\track-and-trace\traces\view\view.component.sass" />
+    <Content Include="src\app\track-and-trace\versions\create\create.component.html" />
+    <Content Include="src\app\track-and-trace\versions\create\create.component.sass" />
+    <Content Include="src\app\track-and-trace\processes\create\create.component.html" />
+    <Content Include="src\app\track-and-trace\processes\create\create.component.sass" />
+    <Content Include="src\app\track-and-trace\processes\list\list.component.html" />
+    <Content Include="src\app\track-and-trace\processes\list\list.component.sass" />
+    <Content Include="src\app\track-and-trace\versions\view\view.component.html" />
+    <Content Include="src\app\track-and-trace\versions\view\view.component.sass" />
+    <Content Include="src\app\track-and-trace\processes\view\view.component.html" />
+    <Content Include="src\app\track-and-trace\processes\view\view.component.sass" />
+    <Content Include="src\assets\.gitkeep" />
+    <Content Include="src\favicon.ico" />
+    <Content Include="src\index.html" />
+    <Content Include="src\styles.sass" />
+    <Content Include="tsconfig.app.json" />
+    <Content Include="tsconfig.json" />
+    <Content Include="tsconfig.spec.json" />
+    <Content Include="tslint.json" />
+    <Content Include="webpack.config.js" />
+  </ItemGroup>
+  <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsToolsV2.targets" />
+</Project>

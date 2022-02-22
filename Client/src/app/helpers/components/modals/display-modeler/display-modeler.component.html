@@ -1,0 +1,38 @@
+<div fxFlex fxLayout="column">
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">{{ mode === 'view' ? 'View' : (mode === 'creation' ? 'Creation' : 'Edition')}} BPMN representation{{ process ? ': ' + process : '' }}</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="(mode === 'view') ? display_modal.hide() : show_cancel_confirmation(confirm_cancel_template)">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div fxFlex fxLayout="column" class="modal-body">
+    <div fxFlex><app-bpmn-modeler #modeler [mode]="mode" [model]="model" (errors)="has_errors = $event"></app-bpmn-modeler></div>
+    <div fxLayoutAlign="end" fxLayout="column">
+      <div fxLayout="row">
+        <div fxFlex class="btn-toolbar justify-content-center" role="toolbar" aria-label="Actions">
+          <div class="btn-group mr-2" role="group">
+            <label class="btn" [ngClass]="{ 'btn-danger': mode !== 'view', 'btn-primary': mode === 'view' }" [attr.aria-label]="(mode === 'view') ? 'Close' : 'Cancel'" (click)="(mode === 'view') ? display_modal.hide() : show_cancel_confirmation(confirm_cancel_template)">{{ (mode === 'view') ? 'Close' : 'Cancel' }}</label>
+          </div>
+          <div *ngIf="mode !== 'view'" class="btn-group" role="group">
+            <label class="btn btn-success" aria-label="Save" (click)="save_model()" [ngClass]="{ 'disabled': has_errors }">Save</label>
+          </div>
+        </div>
+      </div>
+      <alert *ngIf="saving_while_errors" (onClose)="saving_while_errors = false" class="dd-inline-flex" fxLayoutAlign="center" type="danger" dismissible="true" dismissOnTimeout="5000">Model cannot be saved as it contains errors</alert>
+    </div>
+  </div>
+</div>
+
+<ng-template #confirm_cancel_template>
+  <div class="modal-body text-center bg-dark text-light font-weight-bold">
+    <div class="mb-3">Do you want to cancel model {{ mode }}?</div>
+    <div class="btn-toolbar justify-content-center" role="toolbar" aria-label="Actions">
+      <div class="btn-group mr-2" role="group">
+        <button type="button" class="btn btn-outline-success" (click)="confirm_cancel()">Yes</button>
+      </div>
+      <div class="btn-group" role="group">
+        <button type="button" class="btn btn-outline-danger" (click)="cancel_modal.hide()">No</button>
+      </div>
+    </div>
+  </div>
+</ng-template>

@@ -1,0 +1,35 @@
+{
+	"name": "fabric-network",
+	"version": "1.0.0",
+	"channels": {
+		"channel": {
+			"peers": {
+				"organization-peer": {}
+			}
+		}
+	},
+	"organizations": {
+		"Organization": {
+			"mspid": "OrganizationPeersMSP",
+			"adminPrivateKey": {
+				"path": "/home/vm/FABRIC_NETWORK_GENERATOR/networks/fabric-network/network/organization/peers/participants/administrator-peers/msp/keystore/key.pem"
+			},
+			"peers": ["organization-peer"],
+			"signedCert": {
+				"path": "/home/vm/FABRIC_NETWORK_GENERATOR/networks/fabric-network/network/organization/peers/participants/administrator-peers/msp/signcerts/cert.pem"
+			}
+		}
+	},
+	"peers": {
+		"organization-peer": {
+			"grpcOptions": {
+				"ssl-target-name-override": "organization-peer",
+				"hostnameOverride": "organization-peer"
+			},
+			"tlsCACerts": {
+				"path": "/home/vm/FABRIC_NETWORK_GENERATOR/networks/fabric-network/network/organization/peers/participants/peer/tls-msp/tlscacerts/tls-cert.pem"
+			},
+			"url": "grpcs://localhost:7057"
+		}
+	}
+}

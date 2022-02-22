@@ -1,0 +1,11 @@
+export const MINUTE: number = 60;
+export const HOUR: number = MINUTE * 60;
+export const DAY: number = HOUR * 24;
+export const WEEK: number = DAY * 7;
+export const YEAR: number = DAY * 365.25;
+export const SECOND_UNITS: string[] = ['s', 'sec', 'secs', 'second', 'seconds'];
+export const MINUTE_UNITS: string[] = ['m', 'min', 'mins', 'minute', 'minutes'];
+export const HOUR_UNITS: string[] = ['h', 'hr', 'hrs', 'hour', 'hours'];
+export const DAY_UNITS: string[] = ['d', 'day', 'days'];
+export const WEEK_UNITS: string[] = ['w', 'week', 'weeks'];
+export const YEAR_UNITS: string[] = ['y', 'yr', 'yrs', 'year', 'years'];

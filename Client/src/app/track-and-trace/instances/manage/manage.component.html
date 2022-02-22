@@ -1,0 +1,158 @@
+<div fxFlex fxLayout="column">
+  <div class="modal-header align-items-center">
+    <h4 class="modal-title pull-left">{{ action | titlecase }} of instance</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="show_cancel_confirmation(confirm_cancel_template)">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div fxFlex fxLayout="column" class="modal-body">
+    <form fxFlex fxLayout="column" [formGroup]="form">
+      <div fxFlex fxLayout="column">
+        <div *ngIf="['deactivation', 'cancelation'].includes(action)" class="form-group row">
+          <div class="col-12 text-muted text-justify">
+            <ngb-alert *ngIf="action === 'deactivation'" type="info" [dismissible]="false">
+              <span class="font-weight-bold">NOTE:</span> Deactivation of instance is possible only if it does not violate the process model
+            </ngb-alert>
+            <ngb-alert *ngIf="action === 'cancelation'" type="warning" [dismissible]="false">
+              <span class="font-weight-bold">WARNING:</span> Cancelation forces the execution to stop regardless of its current state
+            </ngb-alert>
+          </div>
+        </div>
+
+        <div class="form-group row" *ngIf="action === 'update'">
+          <div class="col-12">
+            <div>
+              <label for="task" class="control-label font-weight-bold">Task identifier</label>
+              <div class="row">
+                <div class="col-11">
+                  <input [typeahead]="list_of_tasks" [typeaheadAsync]="true" [typeaheadMinLength]="0"[typeaheadWaitMs]="1000" class="form-control" [ngClass]="{'is-invalid': form.controls.task.invalid && (form.controls.task.touched || form.controls.task.dirty), 'is-valid': form.controls.task.valid && form.controls.task.touched }" id="task" name="task" formControlName="task" aria-describedby="task-description" />
+                </div>
+                <div *ngIf="form.controls.task.pending" class="d-flex align-items-center">
+                  <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                </div>
+              </div>
+              <div *ngIf="form.controls.task.invalid && !form.controls.task.pending && form.controls.task.touched" class="text-danger form-text">
+                <div *ngIf="form.controls.task.errors.required">
+                  Task identifier is required
+                </div>
+                <div *ngIf="form.controls.task.errors['nonexistent']">
+                  Identifier does not refer to a valid task
+                </div>
+                <div *ngIf="form.controls.task.errors['http_error']">
+                  Validation of task identifier has failed (backend error)
+                </div>
+              </div>
+              <small id="task-description" *ngIf="!form.controls.task.dirty && !form.controls.task.touched" class="form-text text-muted">Select the identifier of the task for which the trace should be recorded.</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group row" *ngIf="action === 'deactivation'">
+          <div class="col-12">
+            <div>
+              <label for="end" class="control-label font-weight-bold">End event identifier</label>
+              <div class="row">
+                <div class="col-11">
+                  <input [typeahead]="list_of_end_events" [typeaheadAsync]="true" [typeaheadMinLength]="0" typeaheadOptionField="identifier" class="form-control" [ngClass]="{'is-invalid': form.controls.end.invalid && (form.controls.end.touched || form.controls.end.dirty), 'is-valid': form.controls.end.valid && form.controls.end.touched }" id="end" name="end" formControlName="end" aria-describedby="end-description" />
+                </div>
+                <div *ngIf="form.controls.end.pending" class="d-flex align-items-center">
+                  <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                </div>
+              </div>
+              <div *ngIf="form.controls.end.invalid && !form.controls.end.pending && form.controls.end.touched" class="text-danger form-text">
+                <div *ngIf="form.controls.end.errors.required">
+                  End event identifier is required
+                </div>
+                <div *ngIf="form.controls.end.errors['nonexistent']">
+                  Identifier does not refer to a valid end event
+                </div>
+                <div *ngIf="form.controls.end.errors['http_error']">
+                  Validation of end event identifier has failed (backend error)
+                </div>
+              </div>
+              <small id="end-description" *ngIf="!form.controls.end.dirty && !form.controls.end.touched" class="form-text text-muted">Select the identifier of the end event for which the trace should be recorded.</small>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="action !== 'update'; else display_data_options_inputs" class="form-group row">
+          <div class="col-12">
+            <label for="data" class="control-label font-weight-bold">Additional data</label>
+            <br />
+            <textarea rows="12" style="resize: none" class="form-control" [ngClass]="{'is-invalid': form.controls.data.invalid && (form.controls.data.touched || form.controls.data.dirty) && form.controls.data.value !== '', 'is-valid': form.controls.data.valid && form.controls.data.dirty && form.controls.data.value !== '' }" id="data" name="data" formControlName="data" aria-describedby="data-description"></textarea>
+            <div *ngIf="form.controls.data.invalid && (form.controls.data.dirty || form.controls.data.touched)" class="text-danger form-text">
+              <div *ngIf="form.controls.data.errors.invalid">
+                Additional data should valid JSON only
+              </div>
+            </div>
+            <small *ngIf="form.controls.data.pristine" id="data-description" class="form-text text-muted">Add any additional JSON data to the trace here.</small>
+          </div>
+        </div>
+        <ng-template #display_data_options_inputs>
+          <div class="form-group row">
+            <div class="col-12">
+              <ngb-accordion #information="ngbAccordion" type="light">
+                <ngb-panel id="data-panel">
+                  <ng-template ngbPanelHeader>
+                    <div class="d-flex align-items-center justify-content-start">
+                      <button ngbPanelToggle class="btn p-0"><i class="fa" [ngClass]="{ 'fa-plus-square': !information.isExpanded('data-panel'), 'fa-minus-square': information.isExpanded('data-panel') }"></i></button>
+                      <button ngbPanelToggle class="btn"><h5 class="m-0">Additional data</h5></button>
+                    </div>
+                  </ng-template>
+                  <ng-template ngbPanelContent>
+                    <textarea rows="12" style="resize: none" class="form-control" [ngClass]="{'is-invalid': form.controls.data.invalid && (form.controls.data.touched || form.controls.data.dirty) && form.controls.data.value !== '', 'is-valid': form.controls.data.valid && form.controls.data.dirty && form.controls.data.value !== '' }" id="data" name="data" formControlName="data" aria-describedby="data-description"></textarea>
+                    <small *ngIf="form.controls.data.pristine" id="data-description" class="form-text text-muted">Add any additional JSON data for the instance here.</small>
+                    <div *ngIf="form.controls.data.invalid && (form.controls.data.dirty || form.controls.data.touched)" class="text-danger form-text">
+                      Additional data should be a valid JSON
+                    </div>
+                  </ng-template>
+                </ngb-panel>
+                <ngb-panel id="options-panel">
+                  <ng-template ngbPanelHeader>
+                    <div class="d-flex align-items-center justify-content-start">
+                      <button ngbPanelToggle class="btn p-0"><i class="fa" [ngClass]="{ 'fa-plus-square': !information.isExpanded('options-panel'), 'fa-minus-square': information.isExpanded('options-panel') }"></i></button>
+                      <button ngbPanelToggle class="btn"><h5 class="m-0">Update options</h5></button>
+                    </div>
+                  </ng-template>
+                  <ng-template ngbPanelContent>
+                    <textarea rows="12" style="resize: none" class="form-control" [ngClass]="{'is-invalid': form.controls.options.invalid && (form.controls.options.touched || form.controls.options.dirty) && form.controls.options.value !== '', 'is-valid': form.controls.options.valid && form.controls.options.dirty && form.controls.options.value !== '' }" id="options" name="data" formControlName="options" aria-describedby="options-description"></textarea>
+                    <small *ngIf="form.controls.options.pristine" id="options-description" class="form-text text-muted">Add update options here.</small>
+                    <div *ngIf="form.controls.options.invalid && (form.controls.options.dirty || form.controls.options.touched)" class="text-danger form-text">
+                      Update options should be a valid JSON
+                    </div>
+                  </ng-template>
+                </ngb-panel>
+              </ngb-accordion>
+            </div>
+          </div>
+        </ng-template>
+      </div>
+    </form>
+    <div fxLayoutAlign="end" fxLayout="column">
+      <div fxLayout="row">
+        <div fxFlex class="btn-toolbar justify-content-center mt-3" role="toolbar" aria-label="Actions">
+          <div class="btn-group mr-2" role="group">
+            <button class="btn btn-sm btn-danger" aria-label="Cancel" (click)="show_cancel_confirmation(confirm_cancel_template)">Cancel</button>
+          </div>
+          <div class="btn-group" role="group">
+            <button class="btn btn-sm btn-success" aria-label="Save" (click)="confirm_state_update()" [disabled]="form.invalid">Save</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #confirm_cancel_template>
+  <div class="modal-body text-center bg-light text-dark">
+    <div class="mb-2">Do you want to cancel the {{ action }} procedure?</div>
+    <div class="btn-toolbar justify-content-center" role="toolbar" aria-label="Actions">
+      <div class="btn-group mr-2" role="group">
+        <button type="button" class="btn btn-success" (click)="confirm_cancel()">Yes</button>
+      </div>
+      <div class="btn-group" role="group">
+        <button type="button" class="btn btn-dark" (click)="cancel_modal.hide()">No</button>
+      </div>
+    </div>
+  </div>
+</ng-template>

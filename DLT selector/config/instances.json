@@ -1,0 +1,143 @@
+[
+    {
+        "identifier": "hyperledger123",
+        "creation": "2021-11-22T00:00:00.000Z",
+        "network": "fabric",
+        "state": "active",
+        "configuration": {},
+        "profile": {
+            "consensus": {
+                "type": "permissioned",
+                "algorithms": [
+                    "raft"
+                ],
+                "energy-saving": true
+            },
+            "contract": {
+                "support": true,
+                "completeness": true,
+                "languages": [
+                    "JavaScript",
+                    "Java",
+                    "Go"
+                ]
+            },
+            "currency": false,
+            "decentralization": 6,
+            "fees": 0,
+            "finality": 2,
+            "governance": {
+                "open-source": true,
+                "type": "non-profit"
+            },
+            "immutability": "definitive",
+            "lightnode": false,
+            "maturity": 0,
+            "throughput": 3000,
+            "platform": "permissioned",
+            "privacy": {
+                "participants": true,
+                "transactions": true
+            },
+            "scalability": "high",
+            "security": {
+                "quantum-resistant": false,
+                "fault-tolerance": 33
+            },
+            "storage": true,
+            "tokenization": false
+        }
+    },
+    {
+        "identifier": "ethereum123",
+        "creation": "2021-11-22T00:00:00.000Z",
+        "network": "ethereum",
+        "state": "active",
+        "configuration": {},
+        "profile": {
+            "consensus": {
+                "type": "public",
+                "algorithms": [
+                    "pow"
+                ],
+                "energy-saving": false
+            },
+            "contract": {
+                "support": true,
+                "completeness": true,
+                "languages": [
+                    "Solidity"
+                ]
+            },
+            "currency": true,
+            "decentralization": 2,
+            "fees": 1,
+            "finality": 10,
+            "governance": {
+                "open-source": true,
+                "type": "decentralized"
+            },
+            "immutability": "probabilistic",
+            "lightnode": true,
+            "maturity": 0,
+            "throughput": 10,
+            "platform": "public",
+            "privacy": {
+                "participants": false,
+                "transactions": false
+            },
+            "scalability": "low",
+            "security": {
+                "quantum-resistant": false,
+                "fault-tolerance": 50
+            },
+            "storage": true,
+            "tokenization": true
+        }
+    },
+    {
+        "identifier": "monero123",
+        "creation": "2021-11-22T00:00:00.000Z",
+        "network": "monero",
+        "state": "active",
+        "configuration": {},
+        "profile": {
+            "consensus": {
+                "type": "public",
+                "algorithms": [
+                    "pow"
+                ],
+                "energy-saving": false
+            },
+            "contract": {
+                "support": false,
+                "completeness": false,
+                "languages": []
+            },
+            "currency": true,
+            "decentralization": 1,
+            "fees": 0.5,
+            "finality": 2,
+            "governance": {
+                "open-source": true,
+                "type": "decentralized"
+            },
+            "immutability": "probabilistic",
+            "lightnode": false,
+            "maturity": 0,
+            "throughput": 1000,
+            "platform": "public",
+            "privacy": {
+                "participants": true,
+                "transactions": true
+            },
+            "scalability": "low",
+            "security": {
+                "quantum-resistant": true,
+                "fault-tolerance": 50
+            },
+            "storage": true,
+            "tokenization": false
+        }
+    }
+]

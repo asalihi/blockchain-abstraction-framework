@@ -1,0 +1,45 @@
+<div fxFlexFill fxLayout="column">
+  <div fxFlex class="text-center jumbotron bg-light m-0" style="overflow: auto">
+    <div class="display-2">Track &amp; Trace</div>
+    <p class="lead text-muted mb-5">View, create and register business processes.<br />Start execution instances and verify process integrity at any time.</p>
+
+    <div class="card-deck">
+      <div class="card p-4 m-5 d-flex flex-column align-items-between justify-content-center">
+        <a class="card-block stretched-link text-decoration-none" routerLink="processes">
+          <h4 class="card-title">Processes</h4>
+          <p class="card-text">Any business process described in Camunda Modeler can be saved securely in Track & Trace, and multiple versions can be used at any time to allow different instances to be tracked in parallel.</p>
+          <div class="card-text">
+            <div *ngIf="statistics_about_processes | async as statistics; else fetching_statistics">
+              <small *ngIf="!statistics.has_error(); else fetch_statistics_about_processes_error" class="text-muted">{{ statistics.value['total'] }} process{{ statistics.value['total'] > 1 ? 'es' : '' }} registered</small>
+            </div>
+            <ng-template #fetch_statistics_about_processes_error>
+              <small class="text-muted">No statistics available</small>
+            </ng-template>
+          </div>
+        </a>
+      </div>
+      <div class="w-100 d-none d-sm-block d-md-none"></div>
+      <div class="card p-4 m-5 d-flex flex-column align-items-between justify-content-center">
+        <a class="card-block stretched-link text-decoration-none" routerLink="instances">
+          <h4 class="card-title">Instances</h4>
+          <p class="card-text">For key tasks of a running instance, Track & Trace can be used to register a trace according to the registered model of process the instance belongs to.</p>
+          <div class="card-text">
+            <div *ngIf="statistics_about_instances | async as statistics; else fetching_statistics">
+              <small *ngIf="!statistics.has_error(); else fetch_statistics_about_instances_error" class="text-muted">{{ statistics.value['running'] }} instance{{ statistics.value['running'] > 1 ? 'es are' : ' is' }} currently running</small>
+              <ng-template #fetch_statistics_about_instances_error>
+                <small class="text-muted">No statistics available</small>
+              </ng-template>
+            </div>
+            
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #fetching_statistics>
+  <div class="d-flex align-items-center justify-content-center">
+    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+  </div>
+</ng-template>

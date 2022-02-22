@@ -1,0 +1,140 @@
+<div fxFlexFill fxLayout="column" *ngIf="!adding_version">
+  <div class="container mt-2 mb-2">
+    <div class="row justify-content-center">
+      <div fxFlex fxLayout="column" class="col-10 justify-content-center">
+        <div class="row">
+          <div class="display-4 mb-4">Create a new process</div>
+        </div>
+        <div *ngIf="error['activated'] && error['type'] === 'invalid-or-missing-fields'" class="row">
+          <ngb-alert type="danger" (closed)="error = { 'activated': false }">
+            <div [ngSwitch]="error['type']">
+              Missing or invalid fields. Please ensure identifier provided information (if any) are correct.
+            </div>
+          </ngb-alert>
+        </div>
+        <form fxFlex fxLayout="column" [formGroup]="form">
+          <div class="row mb-4">
+            <div class="col pl-0">
+              <label for="identifier">Process identifier</label>
+              <input type="text" class="form-control" autocomplete="off" [ngClass]="{'is-invalid': form.controls.identifier.invalid && (form.controls.identifier.touched || form.controls.identifier.dirty), 'is-valid': form.controls.identifier.valid && form.controls.identifier.dirty }" id="identifier" name="identifier" formControlName="identifier" aria-describedby="identifier-description" placeholder="Identifier">
+              <div *ngIf="form.controls.identifier.invalid && (form.controls.identifier.dirty || form.controls.identifier.touched)" class="text-danger form-text">
+                <div *ngIf="form.controls.identifier.errors.required">
+                  Identifier is required
+                </div>
+                <div *ngIf="form.controls.identifier.errors.minlength">
+                  Identifier must be at least {{form.controls.identifier.errors.minlength.requiredLength}} characters long
+                </div>
+                <div *ngIf="form.controls.identifier.errors.pattern">
+                  Identifier should only contain alphanumeric characters only
+                </div>
+              </div>
+              <small *ngIf="form.controls.identifier.pristine" id="identifier-description" class="form-text text-muted">Process identifier should be unique</small>
+            </div>
+            <div class="col">
+              <div class="mb-2 d-flex flex-row-reverse">Process information</div>
+              <div class="d-flex flex-row-reverse">
+                <div class="btn-group" role="group">
+                  <button class="btn mr-2" [ngClass]="{ 'btn-primary': !data, 'btn-warning': data }" (click)="show_data_modal()">{{ data ? 'Edit data' : 'Add data' }}</button>
+                  <button class="btn" [ngClass]="{ 'btn-primary': !options, 'btn-warning': options }" (click)="show_options_modal()">{{ options ? 'Edit options' : 'Add options' }}</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <div class="btn-toolbar" role="toolbar" aria-label="Actions">
+              <div class="btn-group" role="group">
+                <button type="button" class="btn btn-primary" (click)="create_version()">Add version</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <div class="col pl-0">
+              <table class="table table-striped table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col" style="width: 45%">Identifier</th>
+                    <th scope="col" style="width: 45%">Version model</th>
+                    <th scope="col" style="width: 10%"></th>
+                  </tr>
+                </thead>
+                <tbody *ngIf="versions?.length > 0; else empty_table">
+                  <tr *ngFor="let version of versions; let i = index">
+                    <td>
+                      <div class="d-flex flex-row">
+                        <div class="p-2">{{ version['identifier'] }}</div>
+                      </div>
+                    </td>
+                    <td class="align-middle">
+                      <div class="d-flex flex-row">
+                        <div class="btn-toolbar" role="toolbar">
+                          <div class="btn-group mr-2 align-middle" role="group">
+                            <button type="button" class="btn btn-sm btn-primary" (click)="view_model(version['identifier'])">View</button>
+                          </div>
+                          <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-sm btn-primary" (click)="edit_model(version['identifier'])">Modify</button>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <div class="d-flex flex-row">
+                        <div class="btn-toolbar" role="toolbar">
+                          <div class="btn-group mr-2 align-middle" role="group">
+                            <button type="button" class="btn btn-sm btn-warning" (click)="edit_version(i)">
+                              <i class="fa fa-edit fa-xs"></i>
+                            </button>
+                          </div>
+                          <div class="btn-group" role="group">
+                            <button type="button" class="btn btn-sm btn-danger" (click)="confirm_deletion_of_version(version['identifier'])">
+                              <i class="fa fa-times fa-xs"></i>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+                <ng-template #empty_table>
+                  <tbody>
+                    <tr>
+                      <td colspan="3">NO VERSION REGISTERED<br /> <small id="version-information" class="text-muted">Versions related to a process can be created later</small></td>
+                    </tr>
+                  </tbody>
+                </ng-template>
+              </table>
+            </div>
+          </div>
+
+          <div class="row mt-3">
+            <div class="btn-toolbar mb-4" role="toolbar" aria-label="Actions">
+              <div class="btn-group mr-2" role="group">
+                <button type="button" class="btn btn-danger" (click)="(form.controls.identifier.value || (versions?.length > 0 )) ? show_cancel_confirmation(confirm_cancel_template) : cancel()" aria-label="Cancel">Cancel</button>
+              </div>
+              <div class="btn-group" role="group">
+                <button class="btn btn-success" type="button" (click)="save()" [disabled]="!form.valid" aria-label="Save">Save</button>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="adding_version" fxFlexFill fxLayout="column" class="container p-0"><create-version [version]="(index_of_version_to_edit !== undefined) ? versions[index_of_version_to_edit] : {}" fxFlexFill (cancelled)="adding_version = false" (saved)="index_of_version_to_edit ? update_version($event) : add_version($event)"></create-version></div>
+
+<ng-template #confirm_cancel_template>
+  <div class="modal-body text-center bg-light text-dark font-weight-bold">
+    <div class="mb-3">Any modification will be ignored. Continue?</div>
+    <div class="btn-toolbar justify-content-center" role="toolbar" aria-label="Actions">
+      <div class="btn-group mr-2" role="group">
+        <button type="button" class="btn btn-success" (click)="confirm_cancel()">Yes</button>
+      </div>
+      <div class="btn-group" role="group">
+        <button type="button" class="btn btn-dark" (click)="cancel_modal.hide()">No</button>
+      </div>
+    </div>
+  </div>
+</ng-template>

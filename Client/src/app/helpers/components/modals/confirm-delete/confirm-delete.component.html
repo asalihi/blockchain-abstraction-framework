@@ -1,0 +1,11 @@
+<div class="modal-body text-center bg-dark text-light font-weight-bold">
+  <div class="mb-2">Are you sure you want to permanently remove <span class="font-weight-bold">{{ identifier }}</span>?</div>
+  <div class="btn-toolbar justify-content-center" role="toolbar" aria-label="Actions">
+    <div class="btn-group mr-2" role="group">
+      <button type="button" class="btn btn-outline-success" (click)="confirm_deletion()">Yes</button>
+    </div>
+    <div class="btn-group" role="group">
+      <button type="button" class="btn btn-outline-danger" (click)="modal.hide()">No</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,43 @@
+<div fxLayout="column" fxFlexFill>
+  <div fxFlexFill fxLayout="column">
+    <div fxFlex="none">
+      <nav class="navbar navbar-expand navbar-light bg-light border-bottom border-secondary">
+        <div class="navbar-nav" *ngIf="user; else visitor">
+          <!-- TODO URGENT: Update
+          <a [routerLink]="'/'" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="nav-item nav-link">Dashboard</a>
+          <a [routerLink]="'/interact'" routerLinkActive="active" class="nav-item nav-link">Interact</a>
+          <a [routerLink]="'/manage'" routerLinkActive="active" class="nav-item nav-link">Manage</a>
+          <a [routerLink]="'/settings'" routerLinkActive="active" class="nav-item nav-link">Settings</a>-->
+          <a [routerLink]="'/'" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="nav-item nav-link">Home</a>
+          <a [routerLink]="'/track-and-trace'" routerLinkActive="active" class="nav-item nav-link">Track &amp; Trace</a>
+          <a [routerLink]="'/tools'" routerLinkActive="active" class="nav-item nav-link">Tools</a>
+          <a class="nav-item nav-link" (click)="logout()" style="cursor: pointer">Logout</a>
+        </div>
+        <ng-template #visitor>
+          <div class="navbar-nav navbar-right">
+            <a [routerLink]="'/'" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="nav-item nav-link">Home</a>
+            <a [routerLink]="'login'" routerLinkActive="active" class="nav-item nav-link">Login</a>
+          </div>
+        </ng-template>
+      </nav>
+    </div>
+    <div style="position: relative"><div toastContainer id="notifications"></div></div>
+    <div *ngIf="!loading; else loading_screen" class="bg-light" fxFlex>
+      <router-outlet></router-outlet>
+    </div>
+    <div fxFlex="none" class="d-flex justify-content-center align-middle bg-light p-2 border-top border-secondary">
+      FNS PROJECT n°172834 - VERSION 1
+    </div>
+  </div>
+</div>
+
+<ng-template #loading_screen>
+  <div fxFlex class="container">
+    <div class="row h-50 justify-content-center align-items-end">
+      <div class="spinner-grow" role="status"></div>
+    </div>
+    <div class="row h-50 justify-content-center">
+      <h3 class="display-3 mb-4">Loading</h3>
+    </div>
+  </div>
+</ng-template>

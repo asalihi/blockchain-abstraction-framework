@@ -1,0 +1,100 @@
+<div fxFlexFill fxLayout="column" *ngIf="!adding_instance">
+  <div fxFlex style="overflow: auto">
+    <div class="container mt-2 mb-2">
+      <div class="row justify-content-center">
+        <div class="col-10">
+          <div class="row mb-2">
+            <div class="display-4">Existing instances</div>
+          </div>
+          <div class="row mb-5">
+            <h5 class="h-5 clickable btn-link" [routerLink]="['..']"><< Back</h5>
+          </div>
+          <form>
+            <div class="row flex-fill align-items-end mb-4">
+              <div class="col-4">
+                <label for="search" class="control-label font-weight-bold">Filter by identifier</label><input class="form-control" type="text" name="filter" autocomplete="off" [(ngModel)]="display_service['filter_term']" />
+              </div>
+              <div class="col-4"></div>
+              <div class="col-4">
+                <div class="float-right">
+                  <button class="btn btn-primary mr-2" type="button" (click)="refresh_table()"><i class="fa fa-refresh"></i> Refresh</button>
+                  <button class="btn btn-primary" type="button" (click)="adding_instance=true"><i class="fa fa-plus"></i> New instance</button>
+                </div>
+
+              </div>
+            </div>
+
+            <div class="table-responsive">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <ng-container *ngFor="let parameter of [{ 'name': 'Instance', 'sortable': true }, { 'name': 'Process', 'sortable': true }, { 'name': 'Version', 'sortable': true }, { 'name': 'State', 'sortable': true }, { 'name': 'Creation', 'sortable': true }, { 'name': 'Start', 'sortable': true }, { 'name': 'End', 'sortable': true }]">
+                      <ng-container *ngIf="!parameter['sortable']; else sortable_column">
+                        <th scope="col"><div class="p-1">{{ parameter['name'] }}</div></th>
+                      </ng-container>
+                      <ng-template #sortable_column>
+                        <th scope="col" class="sortable" sortable="{{ parameter['name'].toLowerCase() }}" (sort)="sort($event)">
+                          <div class="d-flex flex-row align-text-top">
+                            <div class="pr-2 pt-2 position-relative">
+                              <i class="fa fa-sort-up position-absolute" [ngStyle]="{ 'opacity': (display_service['sort_field'] !== parameter['name'].toLowerCase()) || (display_service['sort_direction'] == 'desc') ? 0.4 : 1  }"></i>
+                              <i class="fa fa-sort-down position-absolute" [ngStyle]="{ 'opacity': (display_service['sort_field'] != parameter['name'].toLowerCase()) || (display_service['sort_direction'] == 'asc') ? 0.4 : 1 }"></i>
+                            </div>
+                            <div class="p-1">{{ parameter['name'] }}</div>
+                          </div>
+                        </th>
+                      </ng-template>
+                    </ng-container>
+                  </tr>
+                </thead>
+                <tbody>
+                  <ng-container *ngIf="display_service.loading | async; else loaded_table">
+                    <tr>
+                      <td align="center" colspan="7">LOADING...</td>
+                    </tr>
+                  </ng-container>
+                  <ng-template #loaded_table>
+                    <ng-container *ngIf="(instances | async)?.length > 0; else empty_table">
+                      <tr *ngFor="let instance of instances | async; let i = index">
+                        <td class="align-middle"><div class="btn btn-link" [routerLink]="['..', 'processes', instance['process'], 'versions', instance['version'], 'instances', instance['instance']]"><ngb-highlight [result]="instance['instance']" [term]="display_service['filter_term']"></ngb-highlight></div></td>
+                        <td class="align-middle"><div class="btn btn-link" [routerLink]="['..', 'processes', instance['process']]"><ngb-highlight [result]="instance['process']" [term]="display_service['filter_term']"></ngb-highlight></div></td>
+                        <td class="align-middle"><div class="btn btn-link" [routerLink]="['..', 'processes', instance['process'], 'versions', instance['version']]"><ngb-highlight [result]="instance['version']" [term]="display_service['filter_term']"></ngb-highlight></div></td>
+                        <td class="align-middle" [ngClass]="{'text-danger': ['error', 'cancelled'].includes(instance['state']), 'text-success': instance['state'] === 'finished', 'text-info': instance['state'] === 'running', 'text-warning': instance['state'] === 'inactive' }"><ngb-highlight [result]="instance['state']" [term]="display_service['filter_term']"></ngb-highlight></td>
+                        <td class="align-middle"><ngb-highlight [result]="instance['creation'] | date:'dd/MM/yyyy HH:mm'" [term]="display_service['filter_term']"></ngb-highlight></td>
+                        <td class="align-middle"><ngb-highlight [result]="instance['start'] ? (instance['start'] | date:'dd/MM/yyyy HH:mm') : 'N/A'" [term]="display_service['filter_term']"></ngb-highlight></td>
+                        <td class="align-middle"><ngb-highlight [result]="instance['end'] ? (instance['end'] | date:'dd/MM/yyyy HH:mm') : 'N/A'" [term]="display_service['filter_term']"></ngb-highlight></td>
+                      </tr>
+                    </ng-container>
+                    <ng-template #empty_table>
+                      <tr>
+                        <td align="center" colspan="7">NO ENTRY FOUND</td>
+                      </tr>
+                    </ng-template>
+                  </ng-template>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="d-flex justify-content-between p-2">
+              <ngb-pagination [collectionSize]="(total_number_of_instances | async)!" [(page)]="display_service['current_page']" [pageSize]="display_service['page_size']">
+              </ngb-pagination>
+
+              <select class="custom-select" style="width: auto" name="page_size" [(ngModel)]="display_service['page_size']">
+                <option [ngValue]="5">5 items per page</option>
+                <option [ngValue]="10">10 items per page</option>
+                <option [ngValue]="25">25 items per page</option>
+                <option [ngValue]="50">50 items per page</option>
+              </select>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="adding_instance" fxFlexFill fxLayout="column" class="container p-0">
+  <div fxFlex style="overflow: auto">
+    <create-instance fxFlexFill [extended]="true" (cancelled)="adding_instance = false" (saved)="add_instance($event)"></create-instance>
+  </div>
+</div>
+<ng-template #signature let-data="data">{{ data }}</ng-template>

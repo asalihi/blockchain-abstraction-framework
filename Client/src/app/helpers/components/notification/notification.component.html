@@ -1,0 +1,27 @@
+<div class="toast-container toast-content rounded border border-dark" style="border-width: 3px!important">
+  <div class="toast-header bg-white border-bottom border-light justify-content-between" [ngClass]="{'mt-0': options['details'], 'pt-2': options['details']}">
+    <div>
+      <span *ngIf="options['details']" class="btn btn-sm btn-dark mr-2" [ngbTooltip]="details" tooltipClass="notification-details" placement="auto" container="body"><i class="fa fa-info fa-sm text-black"></i></span>
+      <strong class="mr-3" [ngClass]="{'text-danger': options['notification'] == 'error', 'text-warning':  options['notification'] == 'warning', 'text-primary':  options['notification'] == 'info', 'text-success':  options['notification'] == 'success', 'text-dark': options['notification'] == 'message'}">{{ (title ? title : (options['title'] ? options['title'] : options['notification'])) | uppercase }}</strong>
+    </div>
+    <div>
+      <small class="text-muted">{{ options['date'] | timeago }}</small>
+      <button *ngIf="options['closeButton']" type="button" class="ml-2 mb-1 close text-muted" data-dismiss="toast" aria-label="Close" (click)="remove()">
+        <span aria-hidden="true">×</span>
+      </button>
+    </div>
+  </div>
+  <div class="toast-body bg-white justify-content-center text-justify text-dark">
+    <div [innerHTML]="message ? message : options['message']"></div>
+    <div *ngIf="options['actions']" class="btn-toolbar justify-content-center mt-2" role="toolbar" aria-label="Actions">
+      <div *ngFor="let action of options['actions']" class="btn-group p-1" role="group">
+        <button type="button" class="btn btn-sm" [ngClass]="{'btn-danger': action['type'] == 'error', 'btn-warning': action['type'] == 'warning', 'btn-primary': action['type'] == 'info', 'btn-success': action['type'] == 'success', 'btn-dark': !action['type']}" (click)="call_action($event, action['name'], options['data'], action['close'])">{{ action['message'] }}</button>
+      </div>
+    </div>
+  </div>
+  <div class="progress m-2" [style.height]="'3px'">
+    <div class="progress-bar" [style.width]="width + '%'" [ngClass]="{'bg-danger': options['notification'] == 'error', 'bg-warning':  options['notification'] == 'warning', 'bg-primary':  options['notification'] == 'info', 'bg-success':  options['notification'] == 'success', 'bg-dark':  options['notification'] == 'message'}"></div>
+  </div>
+</div>
+
+<ng-template #details><notification-details [options]="options['details'] ? options['details']['options'] : {}" [data]="options['details'] ? options['details']['data'] : {}"></notification-details></ng-template>

@@ -1,0 +1,1 @@
+export const DOCKER_COMPOSE_FILE_VERSION: string = '3.8';

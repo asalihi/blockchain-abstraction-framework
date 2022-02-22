@@ -1,0 +1,11 @@
+<div class="btn-group" dropdown>
+  <button dropdownToggle type="button" class="btn dropdown-toggle" [ngClass]="{ 'btn-primary': selected, 'btn-outline-primary': !selected }">
+    {{ selected['name'] || selected['value'] || 'Select an option' }} <span class="caret"></span>
+  </button>
+
+  <ul *dropdownMenu class="dropdown-menu border-dark mt-2" role="menu">
+    <li role="menuitem" *ngFor="let option of options" (click)="select(option)">
+      <span class="dropdown-item"> {{ option['name'] || option['value'] }} </span>
+    </li>
+  </ul>
+</div>
